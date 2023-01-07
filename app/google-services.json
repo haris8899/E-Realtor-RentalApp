@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "460419539458",
+    "project_id": "erealtorapp-131c9",
+    "storage_bucket": "erealtorapp-131c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460419539458:android:7613817ed5840afde7bd1b",
+        "android_client_info": {
+          "package_name": "com.example.erealtorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460419539458-j9v0s9de7ji6j2041620kljglcjcgb3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBThob6uyh8TnykF91inGw3W8b5FO8GpW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460419539458-j9v0s9de7ji6j2041620kljglcjcgb3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

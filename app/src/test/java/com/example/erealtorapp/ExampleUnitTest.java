@@ -1,4 +1,4 @@
-package com.example.e_realtor;
+package com.example.erealtorapp;
 
 import org.junit.Test;
 
