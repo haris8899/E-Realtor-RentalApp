@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -61,6 +62,13 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+        bind.PostAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PostAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -71,10 +79,5 @@ public class ProfileFragment extends Fragment {
         bind = FragmentProfileBinding.inflate(getLayoutInflater());
         return bind.getRoot();
 
-    }
-
-    public void StartPostAdd(View view) {
-        Intent intent = new Intent(getActivity(), PostAddActivity.class);
-        startActivity(intent);
     }
 }
