@@ -12,6 +12,12 @@ public class AddDataClass {
     Boolean Status;
     List<String> images;
 
+    public AddDataClass(String title, int rent, List<String> image) {
+        Title = title;
+        Rent = rent;
+        this.images = image;
+    }
+
     public String getTitle() {
         return Title;
     }
