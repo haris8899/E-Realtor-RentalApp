@@ -22,12 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UserLoginActivity extends AppCompatActivity {
 
-    TextView EmailText;
-    TextView PasswordText;
     ActivityUserLoginBinding binding;
     //using Bom-to authenticate Firebase
     private FirebaseAuth auth;
-
+    //Firebase database instance
     FirebaseDatabase database;
 
     //To  show loading
@@ -35,7 +33,6 @@ public class UserLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_login);
         binding=ActivityUserLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //line to hide actionbar
@@ -50,7 +47,7 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dilog.show();
-                auth.signInWithEmailAndPassword(binding.EmailSignInTextbox.getText().toString(),binding.PasswordTextbox.getText().toString()).
+                auth.signInWithEmailAndPassword(binding.EmailSignInTextbox.getEditText().getText().toString().trim(),binding.PasswordTextbox.getEditText().getText().toString()).
                         addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -68,16 +65,15 @@ public class UserLoginActivity extends AppCompatActivity {
                         });
             }
         });
-        EmailText = findViewById(R.id.EmailSignInTextbox);
-        PasswordText = findViewById(R.id.PasswordTextbox);
+
     }
 
     public void LaunchSignUpActivity(View view) {
         Intent intent= new Intent(this,UserSignupActivity.class);
         //intent.putExtra("K1","Ali");
         //intent.putExtra("K2","Ahmad");
-        intent.putExtra("A1",EmailText.getText().toString());
-        intent.putExtra("A2",PasswordText.getText().toString());
+        intent.putExtra("A1",binding.EmailSignInTextbox.getEditText().getText().toString().trim());
+        intent.putExtra("A2",binding.PasswordTextbox.getEditText().getText().toString().trim());
         startActivity(intent);
     }
 }
