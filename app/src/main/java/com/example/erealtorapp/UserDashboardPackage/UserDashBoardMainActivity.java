@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.erealtorapp.AdminPackage.adminProfileFragment;
+import com.example.erealtorapp.AgentPackage.AgentFragment;
 import com.example.erealtorapp.ProfileFragment;
 import com.example.erealtorapp.R;
 import com.example.erealtorapp.AddManagement.ViewAddFragment;
@@ -48,6 +49,8 @@ public class UserDashBoardMainActivity extends AppCompatActivity{
             loadFragment(new adminProfileFragment());
         else if(Objects.equals(type, "Simple User"))
             loadFragment(new ProfileFragment());
+        else if(Objects.equals(type,"agent"))
+            loadFragment((new AgentFragment()));
         bind.btmNavbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -59,6 +62,8 @@ public class UserDashBoardMainActivity extends AppCompatActivity{
                         loadFragment(new adminProfileFragment());
                     else if(Objects.equals(type, "Simple User"))
                         loadFragment(new ProfileFragment());
+                    else if(Objects.equals(type,"agent"))
+                        loadFragment((new AgentFragment()));
                 } else if (itemid == R.id.viewaddicon)
                 {
                     bind.btmNavbar.getMenu().findItem(R.id.viewaddicon).setChecked(true);

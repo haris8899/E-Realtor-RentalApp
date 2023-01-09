@@ -87,11 +87,12 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                     Log.d("Tag",title);
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
                     Log.d("Tag",Integer.toString(rent));
+                    String oid = postsnapshot.child("status").getValue().toString();
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
                     if(!datalist.contains(new AddDataClass(id, title, rent, image)))
                     {
-                        Log.d("Tag","Dublicate value");
+                        if(oid.equals("true"))
                         datalist.add(new AddDataClass(id, title, rent, image));
                     }
 
