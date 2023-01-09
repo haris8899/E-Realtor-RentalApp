@@ -1,4 +1,4 @@
-package com.example.erealtorapp;
+package com.example.erealtorapp.AdminPackage;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,18 +7,18 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.erealtorapp.AddManagement.PostAddActivity;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
-import com.example.erealtorapp.databinding.ActivityUserDashBoardMainBinding;
+import com.example.erealtorapp.R;
+import com.example.erealtorapp.databinding.FragmentAdminBinding;
+import com.example.erealtorapp.databinding.FragmentAdminProfileBinding;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,14 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileFragment extends Fragment {
+public class adminProfileFragment extends Fragment {
 
     FirebaseAuth auth;
     FirebaseDatabase data;
     DatabaseReference myref;
-    FragmentProfileBinding bind;
+    FragmentAdminProfileBinding bind;
     ProgressDialog dilog;
-    public ProfileFragment() {
+    public adminProfileFragment() {
         // Required empty public constructor
     }
 
@@ -73,18 +73,18 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
-        bind.PostAddButton.setOnClickListener(new View.OnClickListener() {
+        bind.RecruitAgent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PostAddActivity.class);
+                Intent intent = new Intent(getActivity(), RecruitAgent.class);
                 startActivity(intent);
             }
         });
         bind.ViewMyAdsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   Intent intent = new Intent(getActivity(), ViewMyAds.class);
-                   startActivity(intent);
+                Intent intent = new Intent(getActivity(), ViewMyAds.class);
+                startActivity(intent);
 
             }
         });
@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        bind = FragmentProfileBinding.inflate(getLayoutInflater());
+        bind = FragmentAdminProfileBinding.inflate(getLayoutInflater());
         return bind.getRoot();
 
     }

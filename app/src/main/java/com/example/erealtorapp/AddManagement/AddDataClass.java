@@ -4,6 +4,7 @@ import java.util.List;
 
 public class AddDataClass {
     String Title;
+    String id;
     String Address;
     int NoofRooms;
     int Rent;
@@ -16,6 +17,20 @@ public class AddDataClass {
         Title = title;
         Rent = rent;
         this.images = image;
+    }
+
+    public AddDataClass(String id,String title, int rent, List<String> image) {
+        this.id = id;
+        Title = title;
+        Rent = rent;
+        this.images = image;
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
