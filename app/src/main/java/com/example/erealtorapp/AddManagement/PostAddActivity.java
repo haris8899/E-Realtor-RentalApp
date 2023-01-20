@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.erealtorapp.R;
@@ -46,6 +47,10 @@ public class PostAddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_add);
         Bind = ActivityPostAddBinding.inflate(getLayoutInflater());
         setContentView(Bind.getRoot());
+         //line to hide actionbar
+         getSupportActionBar().hide();
+         //line to hide status bar
+         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         images = new ArrayList<Uri>();
         bmpImages = new ArrayList<Bitmap>();
         database = FirebaseDatabase.getInstance();
@@ -121,9 +126,9 @@ public class PostAddActivity extends AppCompatActivity {
         }
 //        BmpImageStrings = BitmapListtoStringList(bmpImages);
         timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
-        AddDataClass data = new AddDataClass(Bind.PropertyTitleText.getText().toString(),Bind.PropertyAddresText.getText().toString()
-                ,Integer.parseInt(Bind.NoOfBedroomsText.getText().toString()),Integer.parseInt(Bind.RentAmountText.getText().toString())
-                ,Integer.parseInt(Bind.SizeOfPlotText.getText().toString()),auth.getUid().toString(),Boolean.FALSE, BmpImageStrings);
+        AddDataClass data = new AddDataClass(Bind.PropertyTitleText.getEditText().getText().toString().trim(),Bind.PropertyAddresText.getEditText().getText().toString().trim()
+                ,Integer.parseInt(Bind.NoOfBedroomsText.getEditText().getText().toString().trim()),Integer.parseInt(Bind.RentAmountText.getEditText().getText().toString().trim())
+                ,Integer.parseInt(Bind.SizeOfPlotText.getEditText().getText().toString().trim()),auth.getUid().toString(),Boolean.FALSE, BmpImageStrings);
         myRef.child(timeStamp).setValue(data);
         Toast.makeText(PostAddActivity.this,"Ad Created Successfully!",Toast.LENGTH_SHORT).show();
         finish();

@@ -11,5 +11,6 @@
     <color name="banner_background_light">#56F1E9CE</color>
     <color name="banner_background">#F1E9CE</color>
     <color name="tv_Background">#505050</color>
+    <color name="txt_Background">#c0c0c0 </color>
 
 </resources>

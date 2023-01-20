@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1"
-    android:orientation="vertical"
+    android:background="@drawable/gradient_background"
     tools:context=".UserAccountsManagement.UserLoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/myls">
 
     <ImageView
         android:id="@+id/loginLogoImage"
         android:layout_width="137dp"
         android:layout_height="97dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="130dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/logo" />
 
@@ -20,33 +25,40 @@
         android:id="@+id/loginNameImage"
         android:layout_width="226dp"
         android:layout_height="59dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="90dp"
         android:src="@drawable/name" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:layout_below="@id/myls"
+        android:background="@drawable/background_shape">
     <TextView
+        android:layout_marginTop="20dp"
         android:id="@+id/helloTv"
         android:layout_width="307dp"
         android:layout_height="98dp"
         android:layout_marginLeft="50dp"
         android:fontFamily="@font/bungee"
         android:text="Hello there, Welcome Back"
-        android:textColor=" #9f7304"
+        android:textColor="@color/txt_Background"
         android:textSize="30sp" />
+
     <TextView
         android:id="@+id/signinTv"
-        android:layout_marginLeft="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
         android:text="Sign In to continue "
-        android:textSize="18sp"
-        android:textColor=" #9f7304"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:textColor="@color/gold"
+        android:textSize="18sp" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/EmailSignInTextbox"
@@ -55,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:background="@color/dialog_choose_icon_color"
             android:hint="username ">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -64,19 +75,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PasswordTextbox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/PasswordTextbox"
-            android:hint="password"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="password"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/dialog_choose_icon_color"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,26 +98,27 @@
             android:layout_marginTop="10dp"
             android:background="#00000000"
             android:text="Forget Password?"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
+
         <Button
             android:id="@+id/SignInbutton"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:text="Login"
-            android:textStyle="bold"
-            />
+
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/SignUpbutton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:background="#00000000"
+            android:onClick="LaunchSignUpActivity"
             android:text="Create Account"
-            android:textColor="@color/gold"
-            android:onClick="LaunchSignUpActivity"/>
+            android:textColor="@color/txt_Background" />
 
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

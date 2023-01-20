@@ -17,6 +17,7 @@ import android.telephony.SmsManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.erealtorapp.R;
@@ -49,6 +50,10 @@ public class RecruitAgent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityRecruitAgentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //line to hide actionbar
+        getSupportActionBar().hide();
+        //line to hide status bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         database= FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         myref = database.getReference();

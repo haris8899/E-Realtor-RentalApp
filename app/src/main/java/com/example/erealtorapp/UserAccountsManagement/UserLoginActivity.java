@@ -34,16 +34,19 @@ public class UserLoginActivity extends AppCompatActivity {
 
     //To  show loading
     ProgressDialog dilog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityUserLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityUserLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //line to hide actionbar
         getSupportActionBar().hide();
-        auth=FirebaseAuth.getInstance();
+        //line to hide status bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        auth = FirebaseAuth.getInstance();
         //Initiallizing Dialog to display
-        dilog=new ProgressDialog(UserLoginActivity.this);
+        dilog = new ProgressDialog(UserLoginActivity.this);
         dilog.setTitle("Login");
         dilog.setMessage("Login to your account ");
         //Sign in user to Database
@@ -51,20 +54,19 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dilog.show();
-                auth.signInWithEmailAndPassword(binding.EmailSignInTextbox.getEditText().getText().toString().trim(),binding.PasswordTextbox.getEditText().getText().toString()).
+                auth.signInWithEmailAndPassword(binding.EmailSignInTextbox.getEditText().getText().toString().trim(), binding.PasswordTextbox.getEditText().getText().toString()).
                         addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 dilog.cancel();
-                                if(task.isSuccessful())
-                                {
+                                if (task.isSuccessful()) {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     DatabaseReference myref = database.getReference("Users");
-                                    ValueEventListener valueEventListener =myref.addValueEventListener(new ValueEventListener() {
+                                    ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            Intent intent= new Intent(UserLoginActivity.this, UserDashBoardMainActivity.class);
-                                            intent.putExtra("A1",snapshot.child(auth.getUid().toString()).child("type").getValue().toString());
+                                            Intent intent = new Intent(UserLoginActivity.this, UserDashBoardMainActivity.class);
+                                            intent.putExtra("A1", snapshot.child(auth.getUid().toString()).child("type").getValue().toString());
                                             startActivity(intent);
                                             myref.removeEventListener(this);
                                         }
@@ -77,9 +79,7 @@ public class UserLoginActivity extends AppCompatActivity {
 //                                    Intent intent= new Intent(UserLoginActivity.this, UserDashBoardMainActivity.class);
 //                                    startActivity(intent);
 
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(UserLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -90,11 +90,11 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
     public void LaunchSignUpActivity(View view) {
-        Intent intent= new Intent(this,UserSignupActivity.class);
+        Intent intent = new Intent(this, UserSignupActivity.class);
         //intent.putExtra("K1","Ali");
         //intent.putExtra("K2","Ahmad");
-        intent.putExtra("A1",binding.EmailSignInTextbox.getEditText().getText().toString().trim());
-        intent.putExtra("A2",binding.PasswordTextbox.getEditText().getText().toString().trim());
+        intent.putExtra("A1", binding.EmailSignInTextbox.getEditText().getText().toString().trim());
+        intent.putExtra("A2", binding.PasswordTextbox.getEditText().getText().toString().trim());
         startActivity(intent);
     }
 }
