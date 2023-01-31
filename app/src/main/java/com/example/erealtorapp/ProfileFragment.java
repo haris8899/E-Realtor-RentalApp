@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.example.erealtorapp.AddManagement.PostAddActivity;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
+import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
 import com.example.erealtorapp.databinding.ActivityUserDashBoardMainBinding;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,9 +56,11 @@ public class ProfileFragment extends Fragment {
                 String name = snapshot.child(uid).child("username").getValue().toString();
                 String image = snapshot.child(uid).child("profileURI").getValue().toString();
                 String email = snapshot.child(uid).child("email").getValue().toString();
+                String phone = snapshot.child(uid).child("phone").getValue().toString();
                 bind.Profilenameesttext.setText(name);
                 bind.Profileimageview.setImageBitmap(stringtobitmap(image));
                 bind.profileemailtext.setText(email);
+                bind.profilephonetext.setText(phone);
                 dilog.cancel();
             }
 
@@ -77,6 +80,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), PostAddActivity.class);
+                startActivity(intent);
+            }
+        });
+        bind.requestagentstatusbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ReqruitAgentRequestActivity.class);
                 startActivity(intent);
             }
         });
