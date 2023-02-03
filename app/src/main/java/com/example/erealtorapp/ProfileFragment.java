@@ -87,6 +87,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ReqruitAgentRequestActivity.class);
+                intent.putExtra("A1",bind.Profilenameesttext.getText().toString());
+                intent.putExtra("A2",bind.profileemailtext.getText().toString());
+                intent.putExtra("A3",bind.profilephonetext.getText().toString());
                 startActivity(intent);
             }
         });
