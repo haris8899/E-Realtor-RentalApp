@@ -69,13 +69,13 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-        bind.LogoutButton.setOnClickListener(new View.OnClickListener() {
+       /* bind.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
                 getActivity().finish();
             }
-        });
+        });*/
         bind.PostAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
