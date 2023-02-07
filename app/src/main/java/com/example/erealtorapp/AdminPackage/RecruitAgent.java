@@ -67,13 +67,13 @@ public class RecruitAgent extends AppCompatActivity {
             pass = getAlphaNumericString(8);
             binding.ProfileImageView.buildDrawingCache();
             Bitmap bmap = binding.ProfileImageView.getDrawingCache();
-            auth.createUserWithEmailAndPassword(binding.EmailSignupText.getText().toString(),
+            auth.createUserWithEmailAndPassword(binding.EmailSignupText.getEditText().getText().toString().trim(),
                     pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     dilog.dismiss();
                     if(task.isSuccessful()){
-                        String phoneno = binding.phonetextBox.getText().toString();
+                        String phoneno = binding.phonetextBox.getEditText().getText().toString().trim();
                         Log.d("Tag",phoneno);
                         if (ContextCompat.checkSelfPermission(RecruitAgent.this, Manifest.permission.SEND_SMS)
                                 != PackageManager.PERMISSION_GRANTED) {
@@ -82,20 +82,20 @@ public class RecruitAgent extends AppCompatActivity {
                             SmsManager smsManager = SmsManager.getDefault();
                             smsManager.sendTextMessage(phoneno
                                     , null, "Your Agent Credintials are\n Email: "
-                                            +binding.EmailSignupText.getText().toString()+"\nPassword: "+pass,
+                                            +binding.EmailSignupText.getEditText().getText().toString().trim()+"\nPassword: "+pass,
                                     null, null);
                         } else {
                             SmsManager smsManager = SmsManager.getDefault();
                             smsManager.sendTextMessage(phoneno
                                     , null, "Your Agent Credintials are\n Email: "
-                                            +binding.EmailSignupText.getText().toString()+"\nPassword: "+pass,
+                                            +binding.EmailSignupText.getEditText().getText().toString().trim()+"\nPassword: "+pass,
                                     null, null);
                         }
                         //calling singnup constructor for UserRegistrationclass
                         UserRegistrationClass User=UserRegistrationClass.getInstance(binding.usernameTextbox
-                                        .getText().toString(),
-                                binding.EmailSignupText.getText().toString(),pass
-                                ,binding.phonetextBox.getText().toString(),"agent",BitmaptoString(bmap));
+                                .getEditText().getText().toString().trim(),
+                                binding.EmailSignupText.getEditText().getText().toString().trim(),pass
+                                ,binding.phonetextBox.getEditText().getText().toString().trim(),"agent",BitmaptoString(bmap));
 
                         //get Userid from Authentication portal
                         String id=task.getResult().getUser().getUid();

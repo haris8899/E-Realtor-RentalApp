@@ -24,7 +24,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/option" />
             <ImageView
-                android:id="@+id/AddProperty_Dashboard"
+                android:id="@+id/AddProperty_DashboardButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"

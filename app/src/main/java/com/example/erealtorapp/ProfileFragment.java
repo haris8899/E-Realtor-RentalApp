@@ -76,6 +76,13 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });*/
+        bind.AddPropertyDashboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentPostButton=new Intent(getActivity(),PostAddActivity.class);
+                startActivity(intentPostButton);
+            }
+        });
         bind.PostAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
