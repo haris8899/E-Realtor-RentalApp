@@ -93,7 +93,10 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                     if(!datalist.contains(new AddDataClass(id, title, rent, image)))
                     {
                         if(oid.equals("true"))
-                        datalist.add(new AddDataClass(id, title, rent, image));
+                        {
+                            datalist.add(new AddDataClass(id, title, rent, image));
+                            adapter.notifyDataSetChanged();
+                        }
                     }
 
                 }

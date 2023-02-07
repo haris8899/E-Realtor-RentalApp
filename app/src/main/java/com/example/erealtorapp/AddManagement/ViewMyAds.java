@@ -72,7 +72,10 @@ public class ViewMyAds extends AppCompatActivity {
                     if(!datalist.contains(new AddDataClass(id,title, rent, image)))
                     {
                          if(oid.equals(auth.getUid().toString()))
-                            datalist.add(new AddDataClass(id,title, rent, image));
+                         {
+                             datalist.add(new AddDataClass(id,title, rent, image));
+                             adapter.notifyDataSetChanged();
+                         }
                     }
                     Log.d("Tag","Datalist: "+Integer.toString(datalist.size()));
 //                    postsnapshot.getRef().orderByChild("ownerID").equalTo(auth.getUid().toString())
