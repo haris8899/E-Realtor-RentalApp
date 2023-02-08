@@ -8,10 +8,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,6 +24,7 @@ import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
 import com.example.erealtorapp.databinding.ActivityUserDashBoardMainBinding;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,13 +32,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
+    //variables
     FirebaseAuth auth;
     FirebaseDatabase data;
     DatabaseReference myref;
     FragmentProfileBinding bind;
     ProgressDialog dilog;
+
+    //Drawer Menu
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -46,10 +57,17 @@ public class ProfileFragment extends Fragment {
         data = FirebaseDatabase.getInstance();
         String uid = auth.getCurrentUser().getUid().toString();
         myref = data.getReference("Users");
-        dilog=new ProgressDialog(getActivity());
+        dilog = new ProgressDialog(getActivity());
         dilog.setTitle("Loading");
         dilog.setMessage("Data is loading");
         dilog.show();
+        //Menu Hooks
+        drawerLayout = bind.drawerLayout;
+        navigationView = bind.navigationView;
+
+        //Navigation Drawer
+        navigationDrawer();
+
         ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,7 +97,7 @@ public class ProfileFragment extends Fragment {
         bind.AddPropertyDashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentPostButton=new Intent(getActivity(),PostAddActivity.class);
+                Intent intentPostButton = new Intent(getActivity(), PostAddActivity.class);
                 startActivity(intentPostButton);
             }
         });
@@ -94,22 +112,42 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ReqruitAgentRequestActivity.class);
-                intent.putExtra("A1",bind.Profilenameesttext.getText().toString());
-                intent.putExtra("A2",bind.profileemailtext.getText().toString());
-                intent.putExtra("A3",bind.profilephonetext.getText().toString());
+                intent.putExtra("A1", bind.Profilenameesttext.getText().toString());
+                intent.putExtra("A2", bind.profileemailtext.getText().toString());
+                intent.putExtra("A3", bind.profilephonetext.getText().toString());
                 startActivity(intent);
             }
         });
         bind.ViewMyAdsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   Intent intent = new Intent(getActivity(), ViewMyAds.class);
-                   startActivity(intent);
+                Intent intent = new Intent(getActivity(), ViewMyAds.class);
+                startActivity(intent);
 
             }
         });
 
     }
+    // For Navigation Drawer
+    private void navigationDrawer() {
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+
+        bind.menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,12 +158,12 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    public Bitmap stringtobitmap(String string)
-    {
+    public Bitmap stringtobitmap(String string) {
         byte[] byteArray1;
         byteArray1 = Base64.decode(string, Base64.DEFAULT);
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray1, 0,
                 byteArray1.length);
         return bmp;
     }
+
 }

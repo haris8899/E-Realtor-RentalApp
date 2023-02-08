@@ -19,6 +19,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="navigationTheme">
+
+        <!--Color of text and icon when selected-->
+        <item name="colorPrimary">@color/gold</item>
+        <!-- Background color  when selected-->
+        <item name="colorControlHighlight">@color/purple_700</item>
+    </style>
     <style name="Theme.ErealtorApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ErealtorApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
