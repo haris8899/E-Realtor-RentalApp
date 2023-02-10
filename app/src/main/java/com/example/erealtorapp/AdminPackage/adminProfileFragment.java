@@ -66,13 +66,13 @@ public class adminProfileFragment extends Fragment {
 
             }
         });
-        bind.LogoutButton.setOnClickListener(new View.OnClickListener() {
+       /* bind.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
                 getActivity().finish();
             }
-        });
+        });*/
         bind.RecruitAgent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

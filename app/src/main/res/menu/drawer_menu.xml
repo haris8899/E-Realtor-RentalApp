@@ -13,26 +13,50 @@
             android:title="Search"
             android:icon="@drawable/adicon"
             />
-        <item
-            android:id="@+id/nav_catagories"
-            android:title="Catagories"
-            android:icon="@drawable/adicon"
-            />
-        <item
-            android:id="@+id/nav_add"
-            android:title="Adds"
-            android:icon="@drawable/adicon"
-            />
 
     </group>
 
-    <item android:title="profile">
+    <item android:title="Contracts">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/My_Name"
-                    android:title="Name"
+                    android:id="@+id/user_GenerateContract_DrawerMenu"
+                    android:title="Generate Contract"
                     android:icon="@drawable/adicon"/>
+                <item
+                    android:id="@+id/user_ViewContract_DrawerMenu"
+                    android:title="View Contract"
+                    android:icon="@drawable/adicon"/>
+            </group>
+        </menu>
+    </item>
+    <item android:title="Payments">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/user_MakePayement_DrawerMenu"
+                    android:title="Make Payment"
+                    android:icon="@drawable/adicon"/>
+
+            </group>
+        </menu>
+    </item>
+    <item android:title="About Us">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/user_ContactUs_DrawerMenu"
+                    android:title="Contact Us"
+                    android:icon="@drawable/adicon"/>
+                <item
+                    android:id="@+id/user_Terms_DrawerMenu"
+                    android:title="Terms and Conditions"
+                    android:icon="@drawable/adicon"/>
+                <item
+                    android:id="@+id/user_RateUs_DrawerMenu"
+                    android:title="Rate Us"
+                    android:icon="@drawable/adicon"/>
+
             </group>
         </menu>
     </item>
