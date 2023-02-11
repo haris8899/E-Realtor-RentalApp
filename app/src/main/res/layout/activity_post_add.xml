@@ -66,21 +66,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="490dp"
-            android:layout_marginTop="20dp"
+            android:layout_below="@id/mysecondLayout"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
-            android:orientation="vertical"
-            android:layout_below="@id/mysecondLayout"
-            android:background="@drawable/background_shape">
+            android:background="@drawable/background_shape"
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/PropertyTitleText"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginRight="20dp"
                 android:hint="Title">
 
@@ -115,7 +115,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +130,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -145,18 +145,18 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/UploadAddButton"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="Post Ad"
                 android:onClick="PostAddFunction"
+                android:text="Post Ad"
                 android:textStyle="bold" />
         </LinearLayout>
-
 
 
     </LinearLayout>

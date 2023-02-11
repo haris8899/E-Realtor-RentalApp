@@ -31,7 +31,6 @@ public class UserLoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     //Firebase database instance
     FirebaseDatabase database;
-
     //To  show loading
     ProgressDialog dilog;
 
