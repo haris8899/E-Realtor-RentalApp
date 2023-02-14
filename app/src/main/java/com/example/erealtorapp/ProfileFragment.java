@@ -121,7 +121,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                 intent.putExtra("A1", bind.Profilenameesttext.getText().toString());
                 intent.putExtra("A2", bind.profileemailtext.getText().toString());
                 intent.putExtra("A3", bind.profilephonetext.getText().toString());
-                intent.putExtra("A4",image);
+                intent.putExtra("A4", image);
                 startActivity(intent);
             }
         });
@@ -135,6 +135,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         });
 
     }
+
     // For Navigation Drawer
     private void navigationDrawer() {
         navigationView.bringToFront();
@@ -149,12 +150,14 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
             }
         });
     }
+
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item)
-    {
-        if(item.getItemId() == R.id.nav_home)
-        {
-            ((UserDashBoardMainActivity)getActivity()).loadFragment(new SearchAdFragment());
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // For navigation menu item clicked
+        if (item.getItemId() == R.id.nav_home) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (item.getItemId() == R.id.nav_search) {
+            ((UserDashBoardMainActivity) getActivity()).loadFragment(new SearchAdFragment());
         }
         return true;
     }
