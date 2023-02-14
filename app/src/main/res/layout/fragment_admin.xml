@@ -82,7 +82,7 @@
                 android:text="Recruit Agent" />
 
             <Button
-                android:id="@+id/ViewMyAdsBtn"
+                android:id="@+id/ViewAgentstbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

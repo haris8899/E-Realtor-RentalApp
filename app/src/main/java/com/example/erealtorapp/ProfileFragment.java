@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -40,6 +42,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
     DatabaseReference myref;
     FragmentProfileBinding bind;
     ProgressDialog dilog;
+    String image;
 
     //Drawer Menu
     DrawerLayout drawerLayout;
@@ -72,7 +75,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.child(uid).child("username").getValue().toString();
-                String image = snapshot.child(uid).child("profileURI").getValue().toString();
+                image = snapshot.child(uid).child("profileURI").getValue().toString();
                 String email = snapshot.child(uid).child("email").getValue().toString();
                 String phone = snapshot.child(uid).child("phone").getValue().toString();
                 bind.Profilenameesttext.setText(name);
@@ -115,6 +118,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                 intent.putExtra("A1", bind.Profilenameesttext.getText().toString());
                 intent.putExtra("A2", bind.profileemailtext.getText().toString());
                 intent.putExtra("A3", bind.profilephonetext.getText().toString());
+                intent.putExtra("A4",image);
                 startActivity(intent);
             }
         });
@@ -133,7 +137,6 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-
         bind.menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

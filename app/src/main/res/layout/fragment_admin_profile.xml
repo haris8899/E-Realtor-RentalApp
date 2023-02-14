@@ -108,7 +108,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/ViewMyAdsBtn"
+                    android:id="@+id/ViewAgentstbtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="20dp"
@@ -132,7 +132,7 @@
                         android:layout_gravity="bottom"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="My Propeties"
+                        android:text="View All Agents"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />

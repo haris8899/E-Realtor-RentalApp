@@ -80,7 +80,7 @@ public class adminProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        bind.ViewMyAdsBtn.setOnClickListener(new View.OnClickListener() {
+        bind.ViewAgentstbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ViewMyAds.class);

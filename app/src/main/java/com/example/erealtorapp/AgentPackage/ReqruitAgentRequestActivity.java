@@ -55,6 +55,7 @@ public class ReqruitAgentRequestActivity extends AppCompatActivity {
     String username;
     String email;
     String phone;
+    String uri;
     //String address;
     Uri PDFuri;
     @Override
@@ -69,6 +70,7 @@ public class ReqruitAgentRequestActivity extends AppCompatActivity {
         username = intent.getStringExtra("A1");
         email = intent.getStringExtra("A2");
         phone = intent.getStringExtra("A3");
+        uri = intent.getStringExtra("A4");
         bind.emailtext.setText(email);
         bind.usernametext.setText(username);
         //address = bind.addresstext.getText().toString();
@@ -91,6 +93,7 @@ public class ReqruitAgentRequestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(bind.Fileuploadstatus.getText().toString().equals("File Uploaded"))
                 {
+                    ref.child("Agent_Request").child(auth.getUid()).child("profileURI").setValue(uri);
                     ref.child("Agent_Request").child(auth.getUid()).child("username").setValue(username);
                     ref.child("Agent_Request").child(auth.getUid()).child("email").setValue(email);
                     ref.child("Agent_Request").child(auth.getUid()).child("phone").setValue(phone);
