@@ -22,8 +22,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.erealtorapp.AddManagement.PostAddActivity;
+import com.example.erealtorapp.AddManagement.ViewAddFragment;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
+import com.example.erealtorapp.UserDashboardPackage.UserDashBoardMainActivity;
 import com.example.erealtorapp.databinding.ActivityUserDashBoardMainBinding;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -147,7 +149,12 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         });
     }
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
+        if(item.getItemId() == R.id.nav_home)
+        {
+            ((UserDashBoardMainActivity)getActivity()).loadFragment(new ViewAddFragment());
+        }
         return true;
     }
 

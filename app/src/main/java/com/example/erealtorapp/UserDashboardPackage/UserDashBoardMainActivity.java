@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class UserDashBoardMainActivity extends AppCompatActivity{
+public class UserDashBoardMainActivity extends AppCompatActivity implements LoadFragmentInterface{
 
     ActivityUserDashBoardMainBinding bind;
     FirebaseAuth auth;
