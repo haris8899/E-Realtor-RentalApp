@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.erealtorapp.AddManagement.PostAddActivity;
+import com.example.erealtorapp.AddManagement.SearchAdFragment;
 import com.example.erealtorapp.AddManagement.ViewAddFragment;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
@@ -153,7 +154,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
     {
         if(item.getItemId() == R.id.nav_home)
         {
-            ((UserDashBoardMainActivity)getActivity()).loadFragment(new ViewAddFragment());
+            ((UserDashBoardMainActivity)getActivity()).loadFragment(new SearchAdFragment());
         }
         return true;
     }
