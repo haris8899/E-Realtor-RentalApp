@@ -89,11 +89,9 @@ public class ViewAgentRequests extends AppCompatActivity implements RecyclerItem
     }
     @Override
     public void onItemClicked(int position) {
-//        Intent intent = new Intent(this, ViewSingleAd.class);
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myref = database.getReference("Ads");
-//        intent.putExtra("A1",datalist.get(position).getAgentID().toString());
-//        startActivity(intent);
+          Intent intent = new Intent(this, ViewSingleAgentRequest.class);
+          intent.putExtra("A1",datalist.get(position).getAgentID().toString());
+          startActivity(intent);
         Log.d("Tag","Item Clicked");
 
     }
