@@ -158,7 +158,14 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (item.getItemId() == R.id.nav_search) {
             ((UserDashBoardMainActivity) getActivity()).loadFragment(new SearchAdFragment());
+        }else if (item.getItemId() == R.id.nav_Logout) {
+            auth.signOut();
+            getActivity().finish();
         }
+
+
+        auth.signOut();
+        getActivity().finish();
         return true;
     }
 
