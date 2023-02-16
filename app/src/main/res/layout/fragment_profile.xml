@@ -84,13 +84,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_margin="20dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/PostAddButton"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="40dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -121,7 +120,7 @@
                     android:id="@+id/ViewMyAdsBtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="30dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -152,7 +151,7 @@
                     android:id="@+id/requestagentstatusbtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="30dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
