@@ -2,20 +2,21 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment"
-    android:id="@+id/drawer_layout">
+    tools:context=".ProfileFragment">
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_shape"
         android:layout_gravity="start"
+        android:background="@drawable/background_shape"
         android:theme="@style/navigationTheme"
         app:headerLayout="@layout/drawer_headerlayout"
-        app:menu="@menu/drawer_menu"
-        android:id="@+id/navigation_view"/>
+        app:menu="@menu/drawer_menu" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,12 +85,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/PostAddButton"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -120,7 +124,8 @@
                     android:id="@+id/ViewMyAdsBtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                   android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -151,7 +156,8 @@
                     android:id="@+id/requestagentstatusbtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
