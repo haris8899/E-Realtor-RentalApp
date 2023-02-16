@@ -1,6 +1,6 @@
 package com.example.erealtorapp.UserAccountsManagement.UserClassData;
 
-public class UserRegistrationClass {
+public class UserClass {
     String Username;
     String Email;
     String Password;
@@ -16,7 +16,7 @@ public class UserRegistrationClass {
         ProfileURI = profileURI;
     }
 
-    private static UserRegistrationClass sign;
+    private static UserClass sign;
 
     public String getType() {
         return Type;
@@ -30,7 +30,7 @@ public class UserRegistrationClass {
         return Username;
     }
 
-    public UserRegistrationClass(String username, String email, String password, String phone, String type, String imageuri) {
+    public UserClass(String username, String email, String password, String phone, String type, String imageuri) {
         Username = username;
         Email = email;
         Password = password;
@@ -67,21 +67,21 @@ public class UserRegistrationClass {
         Phone = phone;
     }
 
-    public UserRegistrationClass() {
+    public UserClass() {
     }
 
-    public static UserRegistrationClass getInstance(String userName, String email, String password, String phone, String type, String imageuri)
+    public static UserClass getInstance(String userName, String email, String password, String phone, String type, String imageuri)
     {
 
         if(sign==null){
-            sign=new UserRegistrationClass(userName,email,password,phone, type, imageuri);
+            sign=new UserClass(userName,email,password,phone, type, imageuri);
         }
         return sign;
     }
-    public static UserRegistrationClass getInstance(){
+    public static UserClass getInstance(){
 
         if(sign==null){
-            sign=new UserRegistrationClass();
+            sign=new UserClass();
         }
         return sign;
     }

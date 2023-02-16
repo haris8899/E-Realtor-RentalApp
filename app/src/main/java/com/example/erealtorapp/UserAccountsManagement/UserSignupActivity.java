@@ -12,11 +12,10 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.erealtorapp.R;
-import com.example.erealtorapp.UserAccountsManagement.UserClassData.UserRegistrationClass;
+import com.example.erealtorapp.UserAccountsManagement.UserClassData.UserClass;
 import com.example.erealtorapp.databinding.ActivityUserSignupBinding;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,7 +67,7 @@ public class UserSignupActivity extends AppCompatActivity {
                         dilog.dismiss();
                         if (task.isSuccessful()) {
                             //calling singnup constructor for UserRegistrationclass
-                            UserRegistrationClass User = UserRegistrationClass.getInstance(binding.usernameTextbox.getEditText().getText().toString().trim(), binding.EmailSignupText.getEditText().getText().toString().trim(), binding.PasswordSignUpTextBox.getEditText().getText().toString().trim(), binding.phonetextBox.getEditText().getText().toString().trim(), "Simple User", BitmaptoString(bmap));
+                            UserClass User = UserClass.getInstance(binding.usernameTextbox.getEditText().getText().toString().trim(), binding.EmailSignupText.getEditText().getText().toString().trim(), binding.PasswordSignUpTextBox.getEditText().getText().toString().trim(), binding.phonetextBox.getEditText().getText().toString().trim(), "Simple User", BitmaptoString(bmap));
 
                             //get Userid from Authentication portal
                             String id = task.getResult().getUser().getUid();

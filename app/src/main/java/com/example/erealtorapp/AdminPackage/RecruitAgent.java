@@ -20,15 +20,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.example.erealtorapp.R;
-import com.example.erealtorapp.UserAccountsManagement.UserClassData.UserRegistrationClass;
-import com.example.erealtorapp.UserAccountsManagement.UserSignupActivity;
+import com.example.erealtorapp.UserAccountsManagement.UserClassData.UserClass;
 import com.example.erealtorapp.databinding.ActivityRecruitAgentBinding;
-import com.example.erealtorapp.databinding.ActivityUserSignupBinding;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -92,7 +88,7 @@ public class RecruitAgent extends AppCompatActivity {
                                     null, null);
                         }
                         //calling singnup constructor for UserRegistrationclass
-                        UserRegistrationClass User=UserRegistrationClass.getInstance(binding.usernameTextbox
+                        UserClass User= UserClass.getInstance(binding.usernameTextbox
                                 .getEditText().getText().toString().trim(),
                                 binding.EmailSignupText.getEditText().getText().toString().trim(),pass
                                 ,binding.phonetextBox.getEditText().getText().toString().trim(),"agent",BitmaptoString(bmap));
