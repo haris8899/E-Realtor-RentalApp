@@ -5,7 +5,6 @@ import static android.os.Environment.DIRECTORY_DOWNLOADS;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +16,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.erealtorapp.AgentPackage.AgentClass;
 import com.example.erealtorapp.databinding.ActivityViewSingleAgentRequestBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ViewSingleAgentRequest extends AppCompatActivity {
 
@@ -103,8 +103,91 @@ public class ViewSingleAgentRequest extends AppCompatActivity {
                        });
             }
         });
+        bind.AgentRejectbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myref.removeValue();
+                storageRef.child("Agent").child(AgentID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("Tag","File Successfully Deleted");
+                    }
+                });
+                String to = bind.Agentemailtext.getText().toString();
+                String subject = "Application to become Agent";
+                String message = "Hi"+ bind.agentnameesttext.getText().toString()+",\n" +
+                        " \n" +
+                        "\n" +
+                        "Thank you so much for your interest in the Agent position with E-realtor." +
+                        " We appreciate you applying for this position.\n" +
+                        " \n" +
+                        "\n" +
+                        "At this time, we are unable to accept your application" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "We wish you the best of luck in your career endeavors.\n" +
+                        " \n" +
+                        "\n" +
+                        "Thank you!";
+                SendEmail(to,subject,message);
+            }
+        });
+        bind.AgentSendMessageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                //need this to prompts email client only
+                email.setType("message/rfc822");
 
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+            }
+        });
+        bind.AgentAcceptBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference  ref= database.getReference().child("Agent");
+                DatabaseReference ref2 = database.getReference().child("Users");
+                ref2.child(AgentID).child("type").setValue("agent");
+                ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ref.child(AgentID).child("Address").setValue(snapshot.child("Address").getValue());
+                        ref.child(AgentID).child("email").setValue(snapshot.child("email").getValue());
+                        ref.child(AgentID).child("phone").setValue(snapshot.child("phone").getValue());
+                        ref.child(AgentID).child("username").setValue(snapshot.child("username").getValue());
+                        ref.child(AgentID).child("profileURI").setValue(snapshot.child("profileURI").getValue());
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                String to = bind.Agentemailtext.getText().toString();
+                String subject = "Application to become Agent";
+                String message ="Hi "+ bind.agentnameesttext.getText().toString()+",\n" +
+                        "Congratulations your Application to become Agent for E-realtor has been Accepted\n"+
+                        "Please Report to our office for initiation\n\n\n"+"Thank you!";
+                myref.removeValue();
+                SendEmail(to,subject,message);
+            }
+        });
+
+    }
+
+    private void SendEmail(String to, String subject, String message)
+    {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+        email.putExtra(Intent.EXTRA_SUBJECT, subject);
+        email.putExtra(Intent.EXTRA_TEXT, message);
+
+        //need this to prompts email client only
+        email.setType("message/rfc822");
+
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
+        finish();
     }
 
     private void DownloadFiles(Context context, String Filename, String Url, String dest) {
