@@ -149,14 +149,18 @@ public class ViewSingleAgentRequest extends AppCompatActivity {
                 DatabaseReference  ref= database.getReference().child("Agent");
                 DatabaseReference ref2 = database.getReference().child("Users");
                 ref2.child(AgentID).child("type").setValue("agent");
+                String image1;
                 ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ref.child(AgentID).child("Address").setValue(snapshot.child("Address").getValue());
-                        ref.child(AgentID).child("email").setValue(snapshot.child("email").getValue());
-                        ref.child(AgentID).child("phone").setValue(snapshot.child("phone").getValue());
-                        ref.child(AgentID).child("username").setValue(snapshot.child("username").getValue());
-                        ref.child(AgentID).child("profileURI").setValue(snapshot.child("profileURI").getValue());
+                        Name = snapshot.child("username").getValue().toString();
+                        email = snapshot.child("email").getValue().toString();
+                        image = snapshot.child("profileURI").getValue().toString();
+                        phone = snapshot.child("phone").getValue().toString();
+                        snapshot.child("Address").getValue().toString();
+
+                        AgentClass agent = new AgentClass(Name,phone, image, email,address);
+                        ref.child(AgentID).setValue(agent);
                     }
 
                     @Override

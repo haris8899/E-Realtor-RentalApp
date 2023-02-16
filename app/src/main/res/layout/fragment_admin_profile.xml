@@ -48,7 +48,7 @@
                 android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:contentDescription="TODO"
-                android:src="@drawable/malik"
+                android:src="@drawable/profilelogo"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -74,13 +74,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/RecruitAgent"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -101,17 +103,18 @@
                         android:layout_gravity="bottom"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="Recruit Agent"
+                        android:text="View Active Agent Locat"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/ViewAgentstbtn"
+                    android:id="@+id/ViewAgentreqbtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -132,17 +135,18 @@
                         android:layout_gravity="bottom"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="View All Agents"
+                        android:text="View Agent Requests"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/requestagentstatusbtn"
+                    android:id="@+id/viewallagentsbtn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -163,7 +167,7 @@
                         android:layout_gravity="bottom"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="Become Agent"
+                        android:text="View All Agents"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />

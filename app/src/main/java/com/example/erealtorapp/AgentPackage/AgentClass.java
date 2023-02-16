@@ -5,6 +5,26 @@ import java.util.ArrayList;
 public class AgentClass {
     String AgentID;
     String Name;
+    String phone;
+    String ProfilePicture;
+    String email;
+    String Address;
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public AgentClass(String name, String phone, String profilePicture, String email, String address) {
+        Name = name;
+        this.phone = phone;
+        ProfilePicture = profilePicture;
+        this.email = email;
+        Address = address;
+    }
 
     public AgentClass(String agentID, String name, String profilePicture, String email) {
         AgentID = agentID;
@@ -13,9 +33,6 @@ public class AgentClass {
         this.email = email;
     }
 
-    String phone;
-    String ProfilePicture;
-    String email;
 
     public String getEmail() {
         return email;

@@ -73,17 +73,17 @@ public class adminProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });*/
-        bind.RecruitAgent.setOnClickListener(new View.OnClickListener() {
+        bind.viewallagentsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), RecruitAgent.class);
+                Intent intent = new Intent(getActivity(), ViewAllAgents.class);
                 startActivity(intent);
             }
         });
-        bind.ViewAgentstbtn.setOnClickListener(new View.OnClickListener() {
+        bind.ViewAgentreqbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ViewMyAds.class);
+                Intent intent = new Intent(getActivity(), ViewAgentRequests.class);
                 startActivity(intent);
 
             }
