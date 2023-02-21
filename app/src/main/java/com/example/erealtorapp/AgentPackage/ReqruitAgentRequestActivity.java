@@ -48,7 +48,6 @@ public class ReqruitAgentRequestActivity extends AppCompatActivity {
     private GoogleMap mMap;
     ProgressDialog dialog;
     FirebaseAuth auth;
-    FirebaseStorage storage;
     DatabaseReference ref;
     StorageReference storageReference;
     Intent intent;

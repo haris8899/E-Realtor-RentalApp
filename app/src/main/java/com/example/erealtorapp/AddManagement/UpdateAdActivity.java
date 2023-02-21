@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.ActivityUpdateAdBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +18,7 @@ public class UpdateAdActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     ActivityUpdateAdBinding binding;
-    AddDataClass dataClass;
+    PropertyClass dataClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

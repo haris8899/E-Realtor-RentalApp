@@ -10,11 +10,8 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.erealtorapp.AddManagement.AddDataClass;
-import com.example.erealtorapp.AddManagement.MyAddAdapter;
-import com.example.erealtorapp.R;
+import com.example.erealtorapp.AddManagement.PropertyClass;
 import com.example.erealtorapp.databinding.ActivityViewAssignedAdsBinding;
-import com.example.erealtorapp.databinding.ActivityViewMyAdsBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +28,7 @@ public class ViewAssignedAdsActivity extends AppCompatActivity {
     ActivityViewAssignedAdsBinding bind;
     AssignedAdsAdapter adapter;
     ProgressDialog dilog;
-    static ArrayList<AddDataClass> datalist = new ArrayList<AddDataClass>();
+    static ArrayList<PropertyClass> datalist = new ArrayList<PropertyClass>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +68,10 @@ public class ViewAssignedAdsActivity extends AppCompatActivity {
                     Log.d("Tag",Integer.toString(rent));
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
-                    if(!datalist.contains(new AddDataClass(id,title, rent, image)))
+                    if(!datalist.contains(new PropertyClass(id,title, rent)))
                     {
                         if(oid.equals("false"))
-                            datalist.add(new AddDataClass(id,title, rent, image));
+                            datalist.add(new PropertyClass(id,title, rent));
                     }
                 }
                 dilog.cancel();

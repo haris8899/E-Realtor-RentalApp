@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.erealtorapp.AddManagement.PostAddActivity;
+import com.example.erealtorapp.AddManagement.PostPropertyActivity;
 import com.example.erealtorapp.AddManagement.SearchAdFragment;
 import com.example.erealtorapp.AddManagement.ViewAddFragment;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
@@ -103,14 +104,14 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         bind.AddPropertyDashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentPostButton = new Intent(getActivity(), PostAddActivity.class);
+                Intent intentPostButton = new Intent(getActivity(), PostPropertyActivity.class);
                 startActivity(intentPostButton);
             }
         });
         bind.PostAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PostAddActivity.class);
+                Intent intent = new Intent(getActivity(), PostPropertyActivity.class);
                 startActivity(intent);
             }
         });

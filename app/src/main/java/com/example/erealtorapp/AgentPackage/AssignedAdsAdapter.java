@@ -1,15 +1,11 @@
 package com.example.erealtorapp.AgentPackage;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.telephony.SmsManager;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +16,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.erealtorapp.AddManagement.AddDataClass;
-import com.example.erealtorapp.AddManagement.MyAddAdapter;
-import com.example.erealtorapp.AddManagement.UpdateAdActivity;
+import com.example.erealtorapp.AddManagement.PropertyClass;
 import com.example.erealtorapp.AddManagement.ViewSingleAd;
-import com.example.erealtorapp.AdminPackage.RecruitAgent;
 import com.example.erealtorapp.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -47,8 +35,8 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
     Context context;
     Activity a;
     private static final int SMS_PERMISSION_CODE = 100;
-    ArrayList<AddDataClass> addList = new ArrayList<AddDataClass>();
-    public AssignedAdsAdapter(Activity a,Context context, ArrayList<AddDataClass> addList) {
+    ArrayList<PropertyClass> addList = new ArrayList<PropertyClass>();
+    public AssignedAdsAdapter(Activity a,Context context, ArrayList<PropertyClass> addList) {
         this.addList = addList;
         this.context = context;
         this.a = a;
@@ -63,8 +51,8 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AssignedAdsAdapter.ViewHolder holder, int position) {
-        AddDataClass data = addList.get(position);
-        holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
+        PropertyClass data = addList.get(position);
+       // holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
         holder.clicklayout.setOnClickListener(new View.OnClickListener() {

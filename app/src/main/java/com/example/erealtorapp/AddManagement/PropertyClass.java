@@ -1,8 +1,10 @@
 package com.example.erealtorapp.AddManagement;
 
+import android.net.Uri;
+
 import java.util.List;
 
-public class AddDataClass {
+public class PropertyClass {
     String Title;
     String id;
     String Address;
@@ -13,17 +15,25 @@ public class AddDataClass {
     Boolean Status;
     List<String> images;
 
-    public AddDataClass(String title, int rent, List<String> image) {
+    public PropertyClass(String title, int rent, List<String> image) {
         Title = title;
         Rent = rent;
         this.images = image;
     }
-
-    public AddDataClass(String id,String title, int rent, List<String> image) {
+    public PropertyClass(String title, int rent) {
+        Title = title;
+        Rent = rent;
+    }
+    public PropertyClass(String id, String title, int rent, List<String> image) {
         this.id = id;
         Title = title;
         Rent = rent;
         this.images = image;
+    }
+    public PropertyClass(String id, String title, int rent) {
+        this.id = id;
+        Title = title;
+        Rent = rent;
     }
     public String getId() {
         return id;
@@ -97,7 +107,7 @@ public class AddDataClass {
         this.images = images;
     }
 
-    public AddDataClass(String title, String address, int noofRooms, int rent, int plotsize, String ownerID, Boolean status, List<String> images) {
+    public PropertyClass(String title, String address, int noofRooms, int rent, int plotsize, String ownerID, Boolean status, List<String> images) {
         Title = title;
         Address = address;
         NoofRooms = noofRooms;
@@ -106,5 +116,14 @@ public class AddDataClass {
         OwnerID = ownerID;
         Status = status;
         this.images = images;
+    }
+    public PropertyClass(String title, String address, int noofRooms, int rent, int plotsize, String ownerID, Boolean status) {
+        Title = title;
+        Address = address;
+        NoofRooms = noofRooms;
+        Rent = rent;
+        this.plotsize = plotsize;
+        OwnerID = ownerID;
+        Status = status;
     }
 }

@@ -14,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.erealtorapp.AddManagement.AddDataClass;
-import com.example.erealtorapp.AddManagement.MyAddAdapter;
 import com.example.erealtorapp.AddManagement.RecyclerItemSelectListener;
 import com.example.erealtorapp.AgentPackage.AgentClass;
 import com.example.erealtorapp.R;

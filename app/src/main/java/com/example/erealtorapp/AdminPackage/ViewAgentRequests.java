@@ -11,23 +11,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.erealtorapp.AddManagement.AddDataClass;
 import com.example.erealtorapp.AddManagement.RecyclerItemSelectListener;
-import com.example.erealtorapp.AddManagement.ViewAddRecyclerViewAdapter;
-import com.example.erealtorapp.AddManagement.ViewSingleAd;
 import com.example.erealtorapp.AgentPackage.AgentClass;
-import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.ActivityViewAgentRequestsBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class ViewAgentRequests extends AppCompatActivity implements RecyclerItemSelectListener {
 

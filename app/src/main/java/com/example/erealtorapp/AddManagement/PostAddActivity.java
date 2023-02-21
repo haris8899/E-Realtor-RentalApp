@@ -109,31 +109,31 @@ public class PostAddActivity extends AppCompatActivity {
         return imgstr;
     }
 
-    public void PostAddFunction(View view)
-    {
-        Log.d("Tag","Hello: "+ Integer.toString(bmpImages.size()));
-        for(int i =0; i <bmpImages.size();i++)
-        {
-            if(bmpImages.get(i)==null)
-            {
-                Log.d("Tag","Bmpfail");
-            }
-        }
-        BmpImageStrings = new ArrayList<String>();
-        for(int i =0; i<bmpImages.size();i++)
-        {
-            BmpImageStrings.add(BitmaptoString(bmpImages.get(i)));
-        }
-//        BmpImageStrings = BitmapListtoStringList(bmpImages);
-        timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
-        AddDataClass data = new AddDataClass(Bind.PropertyTitleText.getEditText().getText().toString().trim(),Bind.PropertyAddresText.getEditText().getText().toString().trim()
-                ,Integer.parseInt(Bind.NoOfBedroomsText.getEditText().getText().toString().trim()),Integer.parseInt(Bind.RentAmountText.getEditText().getText().toString().trim())
-                ,Integer.parseInt(Bind.SizeOfPlotText.getEditText().getText().toString().trim()),auth.getUid().toString(),Boolean.FALSE, BmpImageStrings);
-        myRef.child(timeStamp).setValue(data);
-        Toast.makeText(PostAddActivity.this,"Ad Created Successfully!",Toast.LENGTH_SHORT).show();
-        finish();
-
-    }
+//    public void PostAddFunction(View view)
+//    {
+//        Log.d("Tag","Hello: "+ Integer.toString(bmpImages.size()));
+//        for(int i =0; i <bmpImages.size();i++)
+//        {
+//            if(bmpImages.get(i)==null)
+//            {
+//                Log.d("Tag","Bmpfail");
+//            }
+//        }
+//        BmpImageStrings = new ArrayList<String>();
+//        for(int i =0; i<bmpImages.size();i++)
+//        {
+//            BmpImageStrings.add(BitmaptoString(bmpImages.get(i)));
+//        }
+////        BmpImageStrings = BitmapListtoStringList(bmpImages);
+//        timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+//        PropertyClass data = new PropertyClass(Bind.PropertyTitleText.getEditText().getText().toString().trim(),Bind.PropertyAddresText.getEditText().getText().toString().trim()
+//                ,Integer.parseInt(Bind.NoOfBedroomsText.getEditText().getText().toString().trim()),Integer.parseInt(Bind.RentAmountText.getEditText().getText().toString().trim())
+//                ,Integer.parseInt(Bind.SizeOfPlotText.getEditText().getText().toString().trim()),auth.getUid().toString(),Boolean.FALSE, BmpImageStrings);
+//        myRef.child(timeStamp).setValue(data);
+//        Toast.makeText(PostAddActivity.this,"Ad Created Successfully!",Toast.LENGTH_SHORT).show();
+//        finish();
+//
+//    }
     public void PreviousImageFunction(View view)
     {
         if(CurrentImageIndex > 0)

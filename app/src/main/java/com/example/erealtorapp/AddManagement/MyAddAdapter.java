@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.erealtorapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,8 +33,8 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
     DatabaseReference myref;
     String itemid;
     Context context;
-    ArrayList<AddDataClass> addList = new ArrayList<AddDataClass>();
-    public MyAddAdapter(Context context, ArrayList<AddDataClass> addList) {
+    ArrayList<PropertyClass> addList = new ArrayList<PropertyClass>();
+    public MyAddAdapter(Context context, ArrayList<PropertyClass> addList) {
         this.addList = addList;
         this.context = context;
     }
@@ -47,8 +49,9 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyAddAdapter.ViewHolder holder, int position) {
-        AddDataClass data = addList.get(position);
-        holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
+        PropertyClass data = addList.get(position);
+        Uri uri = Uri.parse(data.getImages().get(0));
+        Picasso.get().load(uri).into(holder.dataimage);
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
         holder.deleteitem.setOnClickListener(new View.OnClickListener() {

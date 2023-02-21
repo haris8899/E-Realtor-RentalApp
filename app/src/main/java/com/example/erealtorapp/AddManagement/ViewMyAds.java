@@ -29,7 +29,7 @@ public class ViewMyAds extends AppCompatActivity {
     ActivityViewMyAdsBinding bind;
     MyAddAdapter adapter;
     ProgressDialog dilog;
-    static ArrayList<AddDataClass> datalist = new ArrayList<AddDataClass>();
+    static ArrayList<PropertyClass> datalist = new ArrayList<PropertyClass>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class ViewMyAds extends AppCompatActivity {
 
     private void downloadadds() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myref = database.getReference("Ads");
+        DatabaseReference myref = database.getReference("Properties");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         dilog.show();
         ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
@@ -69,11 +69,11 @@ public class ViewMyAds extends AppCompatActivity {
                     Log.d("Tag",Integer.toString(rent));
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
-                    if(!datalist.contains(new AddDataClass(id,title, rent, image)))
+                    if(!datalist.contains(new PropertyClass(id,title, rent, image)))
                     {
                          if(oid.equals(auth.getUid().toString()))
                          {
-                             datalist.add(new AddDataClass(id,title, rent, image));
+                             datalist.add(new PropertyClass(id,title, rent, image));
                              adapter.notifyDataSetChanged();
                          }
                     }
@@ -88,10 +88,10 @@ public class ViewMyAds extends AppCompatActivity {
 //                                    Log.d("Tag",Integer.toString(rent));
 //                                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
 //                                    List<String> image = postsnapshot.child("images").getValue(t);
-//                                    if(!datalist.contains(new AddDataClass(id,title, rent, image)))
+//                                    if(!datalist.contains(new PropertyClass(id,title, rent, image)))
 //                                    {
 //                                        Log.d("Tag","Dublicate value");
-//                                        datalist.add(new AddDataClass(id,title, rent, image));
+//                                        datalist.add(new PropertyClass(id,title, rent, image));
 //                                    }
 //                                    Log.d("Tag","Datalist: "+Integer.toString(datalist.size()));
 //                                }

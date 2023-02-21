@@ -3,12 +3,10 @@ package com.example.erealtorapp.AddManagement;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,9 +23,9 @@ public class ViewAddRecyclerViewAdapter
     private RecyclerView.ViewHolder holder;
     private int position;
     private RecyclerItemSelectListener itemSelectListener;
-    ArrayList<AddDataClass> addList = new ArrayList<AddDataClass>();
+    ArrayList<PropertyClass> addList = new ArrayList<PropertyClass>();
 
-    public ViewAddRecyclerViewAdapter(ArrayList<AddDataClass> addList, RecyclerItemSelectListener itemSelectListener) {
+    public ViewAddRecyclerViewAdapter(ArrayList<PropertyClass> addList, RecyclerItemSelectListener itemSelectListener) {
         this.addList = addList;
         this.itemSelectListener = itemSelectListener;
     }
@@ -42,8 +40,8 @@ public class ViewAddRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        AddDataClass data = addList.get(position);
-        holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
+        PropertyClass data = addList.get(position);
+        //holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
 

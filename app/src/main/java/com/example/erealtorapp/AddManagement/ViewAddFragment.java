@@ -2,8 +2,6 @@ package com.example.erealtorapp.AddManagement;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,17 +10,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.erealtorapp.R;
-import com.example.erealtorapp.UserAccountsManagement.UserLoginActivity;
-import com.example.erealtorapp.UserAccountsManagement.UserSignupActivity;
 import com.example.erealtorapp.databinding.FragmentViewAddBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,9 +37,9 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
     static ViewAddRecyclerViewAdapter adapter;
     static FragmentViewAddBinding bind;
     String key;
-    static ArrayList<AddDataClass> datalist = new ArrayList<AddDataClass>();
-    HashSet<AddDataClass> hashSet =new HashSet<AddDataClass>();
-    AddDataClass dataClass;
+    static ArrayList<PropertyClass> datalist = new ArrayList<PropertyClass>();
+    HashSet<PropertyClass> hashSet =new HashSet<PropertyClass>();
+    PropertyClass dataClass;
     ProgressDialog dilog;
 
     public ViewAddFragment() {
@@ -90,11 +82,11 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                     String oid = postsnapshot.child("status").getValue().toString();
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
-                    if(!datalist.contains(new AddDataClass(id, title, rent, image)))
+                    if(!datalist.contains(new PropertyClass(id, title, rent)))
                     {
                         if(oid.equals("true"))
                         {
-                            datalist.add(new AddDataClass(id, title, rent, image));
+                            datalist.add(new PropertyClass(id, title, rent));
                             adapter.notifyDataSetChanged();
                         }
                     }
