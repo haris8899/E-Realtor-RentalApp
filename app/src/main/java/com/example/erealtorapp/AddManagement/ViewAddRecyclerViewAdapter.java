@@ -2,6 +2,7 @@ package com.example.erealtorapp.AddManagement;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.erealtorapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,7 +43,8 @@ public class ViewAddRecyclerViewAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PropertyClass data = addList.get(position);
-        //holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
+        Uri uri =Uri.parse(data.getImages().get(0));
+        Picasso.get().load(uri).into(holder.dataimage);
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
 

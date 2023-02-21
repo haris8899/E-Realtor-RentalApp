@@ -7,28 +7,21 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.example.erealtorapp.AddManagement.PostAddActivity;
 import com.example.erealtorapp.AddManagement.PostPropertyActivity;
 import com.example.erealtorapp.AddManagement.SearchAdFragment;
-import com.example.erealtorapp.AddManagement.ViewAddFragment;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
 import com.example.erealtorapp.UserDashboardPackage.UserDashBoardMainActivity;
-import com.example.erealtorapp.databinding.ActivityUserDashBoardMainBinding;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

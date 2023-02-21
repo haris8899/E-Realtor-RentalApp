@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class ViewSingleAd extends AppCompatActivity {
     FirebaseDatabase data;
     DatabaseReference myref;
     ArrayList<String> images;
+    Uri currentImage;
     int CurrentImageIndex = 0;
     int totalnumberofimages = 0;
     @Override
@@ -39,7 +42,7 @@ public class ViewSingleAd extends AppCompatActivity {
         intent = getIntent();
         adid = intent.getStringExtra("A1");
         data =FirebaseDatabase.getInstance();
-        myref = data.getReference("Ads");
+        myref = data.getReference("Properties");
         images = new ArrayList<String>();
         ValueEventListener valueEventListener= myref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -60,7 +63,8 @@ public class ViewSingleAd extends AppCompatActivity {
                             Log.d("Tag",image);
                             images.add(image);
                         }
-                        bind.PropertyImageView.setImageBitmap(stringtobitmap(images.get(0)));
+                        currentImage = Uri.parse(images.get(0));
+                        Picasso.get().load(currentImage).into(bind.PropertyImageView);
                         totalnumberofimages = images.size();
                         bind.floatingActionButton2.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -70,7 +74,8 @@ public class ViewSingleAd extends AppCompatActivity {
                                     Log.d("Tag","forward");
                                     CurrentImageIndex = CurrentImageIndex +1;
                                 }
-                                bind.PropertyImageView.setImageBitmap(stringtobitmap(images.get(CurrentImageIndex)));
+                                currentImage = Uri.parse(images.get(CurrentImageIndex));
+                                Picasso.get().load(currentImage).into(bind.PropertyImageView);
                             }
                         });
                         bind.floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +86,8 @@ public class ViewSingleAd extends AppCompatActivity {
                                     Log.d("Tag","back");
                                     CurrentImageIndex = CurrentImageIndex -1;
                                 }
-                                bind.PropertyImageView.setImageBitmap(stringtobitmap(images.get(CurrentImageIndex)));
+                                currentImage = Uri.parse(images.get(CurrentImageIndex));
+                                Picasso.get().load(currentImage).into(bind.PropertyImageView);
                             }
                         });
                     }
@@ -116,13 +122,5 @@ public class ViewSingleAd extends AppCompatActivity {
             }
         });
 
-    }
-    public Bitmap stringtobitmap(String string)
-    {
-        byte[] byteArray1;
-        byteArray1 = Base64.decode(string, Base64.DEFAULT);
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray1, 0,
-                byteArray1.length);
-        return bmp;
     }
 }

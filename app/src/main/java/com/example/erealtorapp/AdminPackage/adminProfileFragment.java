@@ -14,12 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.erealtorapp.AddManagement.PostAddActivity;
-import com.example.erealtorapp.AddManagement.ViewMyAds;
-import com.example.erealtorapp.R;
-import com.example.erealtorapp.databinding.FragmentAdminBinding;
 import com.example.erealtorapp.databinding.FragmentAdminProfileBinding;
-import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

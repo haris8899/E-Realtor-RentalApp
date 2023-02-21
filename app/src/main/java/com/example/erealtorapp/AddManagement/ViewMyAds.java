@@ -78,30 +78,6 @@ public class ViewMyAds extends AppCompatActivity {
                          }
                     }
                     Log.d("Tag","Datalist: "+Integer.toString(datalist.size()));
-//                    postsnapshot.getRef().orderByChild("ownerID").equalTo(auth.getUid().toString())
-//                            .addValueEventListener(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                    String title = postsnapshot.child("title").getValue().toString();
-//                                    String id = postsnapshot.getKey().toString();
-//                                    int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
-//                                    Log.d("Tag",Integer.toString(rent));
-//                                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
-//                                    List<String> image = postsnapshot.child("images").getValue(t);
-//                                    if(!datalist.contains(new PropertyClass(id,title, rent, image)))
-//                                    {
-//                                        Log.d("Tag","Dublicate value");
-//                                        datalist.add(new PropertyClass(id,title, rent, image));
-//                                    }
-//                                    Log.d("Tag","Datalist: "+Integer.toString(datalist.size()));
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                }
-//                            });
-
                 }
                 dilog.cancel();
             }

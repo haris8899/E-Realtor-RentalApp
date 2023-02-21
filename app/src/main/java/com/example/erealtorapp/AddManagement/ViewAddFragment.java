@@ -65,7 +65,7 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
     public void downloadadds()
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myref = database.getReference("Ads");
+        DatabaseReference myref = database.getReference("Properties");
         dilog.show();
         ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,11 +82,11 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                     String oid = postsnapshot.child("status").getValue().toString();
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
-                    if(!datalist.contains(new PropertyClass(id, title, rent)))
+                    if(!datalist.contains(new PropertyClass(id, title, rent,image)))
                     {
                         if(oid.equals("true"))
                         {
-                            datalist.add(new PropertyClass(id, title, rent));
+                            datalist.add(new PropertyClass(id, title, rent,image));
                             adapter.notifyDataSetChanged();
                         }
                     }

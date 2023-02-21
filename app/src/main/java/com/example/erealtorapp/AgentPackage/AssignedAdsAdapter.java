@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,9 @@ import com.example.erealtorapp.AddManagement.ViewSingleAd;
 import com.example.erealtorapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -52,7 +56,8 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
     @Override
     public void onBindViewHolder(@NonNull AssignedAdsAdapter.ViewHolder holder, int position) {
         PropertyClass data = addList.get(position);
-       // holder.dataimage.setImageBitmap(stringtobitmap(data.getImages().get(0)));
+        Uri uri = Uri.parse(data.getImages().get(0));
+        Picasso.get().load(uri).into(holder.dataimage);
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
         holder.clicklayout.setOnClickListener(new View.OnClickListener() {
@@ -75,20 +80,35 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
             public void onClick(View view) {
                 String id = data.getId().toString();
                 myref.child(id).removeValue();
+                StorageReference mystorageref = FirebaseStorage.getInstance()
+                        .getReference().child("Properties")
+                        .child(data.getId()).child("images");
+                mystorageref.delete();
             }
         });
         holder.contactbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AgentContactOwner.class);
-                String id = data.getId().toString();
-                intent.putExtra("A1",id);
-                context.startActivity(intent);
+                Intent email = new Intent(Intent.ACTION_SEND);
+                //need this to prompts email client only
+                email.setType("message/rfc822");
+                context.startActivity(Intent.createChooser(email, "Choose an Email client :"));
             }
         });
 
     }
+    private void SendEmail(String to, String subject, String message)
+    {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+        email.putExtra(Intent.EXTRA_SUBJECT, subject);
+        email.putExtra(Intent.EXTRA_TEXT, message);
 
+        //need this to prompts email client only
+        email.setType("message/rfc822");
+
+        context.startActivity(Intent.createChooser(email, "Choose an Email client :"));
+    }
     @Override
     public int getItemCount() {
         return addList.size();
@@ -114,15 +134,7 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
             contactbtn = itemView.findViewById(R.id.Contactbtn);
             clicklayout = itemView.findViewById(R.id.Clicklinearlayout);
             database = FirebaseDatabase.getInstance();
-            myref = database.getReference("Ads");
+            myref = database.getReference("Properties");
         }
-    }
-    public Bitmap stringtobitmap(String string)
-    {
-        byte[] byteArray1;
-        byteArray1 = Base64.decode(string, Base64.DEFAULT);
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray1, 0,
-                byteArray1.length);
-        return bmp;
     }
 }
