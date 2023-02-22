@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.erealtorapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,8 +52,14 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyAddAdapter.ViewHolder holder, int position) {
         PropertyClass data = addList.get(position);
-        Uri uri = Uri.parse(data.getImages().get(0));
-        Picasso.get().load(uri).into(holder.dataimage);
+        try
+        {
+            Uri uri = Uri.parse(data.getImages().get(0));
+            Picasso.get().load(uri).into(holder.dataimage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
         holder.deleteitem.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +67,14 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
             public void onClick(View view) {
                 Log.d("Tag","id: "+data.getId());
                 database = FirebaseDatabase.getInstance();
-                myref = database.getReference("Ads").child(data.getId());
+                myref = database.getReference("Properties").child(data.getId());
                 myref.removeValue();
+                StorageReference stref = FirebaseStorage.getInstance()
+                        .getReference().child("Properties")
+                        .child(data.getId()).child("images");
+                for (int i = 0; i < data.getImages().size(); i++) {
+                    stref.child(String.valueOf(i)).delete();
+                }
             }
         });
         holder.updatebuttn.setOnClickListener(new View.OnClickListener() {

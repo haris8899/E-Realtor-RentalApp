@@ -43,8 +43,13 @@ public class ViewAddRecyclerViewAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PropertyClass data = addList.get(position);
-        Uri uri =Uri.parse(data.getImages().get(0));
-        Picasso.get().load(uri).into(holder.dataimage);
+        try
+        {
+            Uri uri = Uri.parse(data.getImages().get(0));
+            Picasso.get().load(uri).into(holder.dataimage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
 

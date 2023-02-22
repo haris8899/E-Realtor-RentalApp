@@ -56,8 +56,13 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
     @Override
     public void onBindViewHolder(@NonNull AssignedAdsAdapter.ViewHolder holder, int position) {
         PropertyClass data = addList.get(position);
-        Uri uri = Uri.parse(data.getImages().get(0));
-        Picasso.get().load(uri).into(holder.dataimage);
+        try
+        {
+            Uri uri = Uri.parse(data.getImages().get(0));
+            Picasso.get().load(uri).into(holder.dataimage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.Title.setText(data.getTitle());
         holder.Rent.setText(String.valueOf(data.getRent()));
         holder.clicklayout.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +85,13 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
             public void onClick(View view) {
                 String id = data.getId().toString();
                 myref.child(id).removeValue();
-                StorageReference mystorageref = FirebaseStorage.getInstance()
+                StorageReference stref = FirebaseStorage.getInstance()
                         .getReference().child("Properties")
                         .child(data.getId()).child("images");
-                mystorageref.delete();
+                for (int i = 0; i < data.getImages().size(); i++) {
+                    stref.child(String.valueOf(i)).delete();
+                }
+
             }
         });
         holder.contactbtn.setOnClickListener(new View.OnClickListener() {

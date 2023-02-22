@@ -1,6 +1,7 @@
 package com.example.erealtorapp.AddManagement;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.erealtorapp.databinding.ActivityUpdateAdBinding;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +44,7 @@ public class UpdateAdActivity extends AppCompatActivity {
     PropertyClass dataClass;
     ArrayList<String> images;
     ArrayList<String> imagesBack;
+    ArrayList<Uri> AddImageList;
     Uri currentImage;
     ArrayList<Uri> ImageUriList;
 
@@ -60,6 +63,7 @@ public class UpdateAdActivity extends AppCompatActivity {
         imagesBack = new ArrayList<String>();
         storageReference = FirebaseStorage.getInstance().getReference();
         ImageUriList = new ArrayList<Uri>();
+        AddImageList = new ArrayList<>();
         String adid = intent.getStringExtra("A1");
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Properties");
@@ -80,6 +84,7 @@ public class UpdateAdActivity extends AppCompatActivity {
                             images.add(image);
                             imagesBack.add(image);
                         }
+                        ImageUriList.clear();
                         File newfile = null;
                         for (int i = 0; i < images.size(); i++) {
                             try {
@@ -138,14 +143,26 @@ public class UpdateAdActivity extends AppCompatActivity {
                                         "No Images Uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
+                        bind.addphotosbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ImagePicker.with(UpdateAdActivity.this)
+                                        .crop()	    			//Crop image(Optional), Check Customization for more option
+                                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
+//                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                                        .start();
+                            }
+                        });
+
                         bind.UpdateAddButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.d("Tag", "Deleted");
+//                                Log.d("Tag", "Deleted");
+                                ImageUriList.addAll(AddImageList);
+                                StorageReference stref = storageReference.child("Properties")
+                                        .child(adid).child("images");
                                 for (int i = 0; i < imagesBack.size(); i++) {
-                                    StorageReference stref = storageReference.child("Properties")
-                                            .child(adid).child("images").child(String.valueOf(i));
-                                    stref.delete();
+                                    stref.child(String.valueOf(i)).delete();
                                 }
                                 myRef.child(adid).child("images").removeValue();
                                 for (int i = 0; i < ImageUriList.size(); i++) {
@@ -155,6 +172,12 @@ public class UpdateAdActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
+                                myRef.child(adid).child("title").setValue(bind.PropertyTitleText.getText().toString());
+                                myRef.child(adid).child("address").setValue(bind.PropertyAddresText.getText().toString());
+                                myRef.child(adid).child("noofRooms").setValue(bind.NoOfBedroomsText.getText().toString());
+                                myRef.child(adid).child("plotsize").setValue(bind.SizeOfPlotText.getText().toString());
+                                myRef.child(adid).child("rent").setValue(bind.RentAmountText.getText().toString());
+                                finish();
                             }
                         });
                     }
@@ -171,20 +194,24 @@ public class UpdateAdActivity extends AppCompatActivity {
 
             }
         });
-        bind.UpdateAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myRef.child(adid).child("title").setValue(bind.PropertyTitleText.getText().toString());
-                myRef.child(adid).child("address").setValue(bind.PropertyAddresText.getText().toString());
-                myRef.child(adid).child("noofRooms").setValue(bind.NoOfBedroomsText.getText().toString());
-                myRef.child(adid).child("plotsize").setValue(bind.SizeOfPlotText.getText().toString());
-                myRef.child(adid).child("rent").setValue(bind.RentAmountText.getText().toString());
-                finish();
-            }
-        });
 
     }
-
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri uri = data.getData();
+        bind.PropertyImageView.setImageURI(uri);
+        images.add(uri.toString());
+        AddImageList.add(uri);
+        totalnumberofimages = totalnumberofimages + 1;
+        CurrentImageIndex = totalnumberofimages -1;
+        //  images.add(uri);
+//        try {
+//            bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver() , uri);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        bmpImages.add(bmp);
+    }
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
