@@ -65,7 +65,6 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
         holder.deleteitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Tag","id: "+data.getId());
                 database = FirebaseDatabase.getInstance();
                 myref = database.getReference("Properties").child(data.getId());
                 myref.removeValue();

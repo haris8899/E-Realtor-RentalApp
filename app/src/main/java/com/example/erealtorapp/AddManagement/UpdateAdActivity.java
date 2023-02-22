@@ -58,6 +58,7 @@ public class UpdateAdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityUpdateAdBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        getSupportActionBar().hide();
         Intent intent = getIntent();
         images = new ArrayList<String>();
         imagesBack = new ArrayList<String>();
@@ -105,7 +106,6 @@ public class UpdateAdActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 if (CurrentImageIndex < totalnumberofimages - 1) {
-                                    Log.d("Tag", "forward");
                                     CurrentImageIndex = CurrentImageIndex + 1;
                                 }
                                 currentImage = Uri.parse(images.get(CurrentImageIndex));
@@ -116,7 +116,6 @@ public class UpdateAdActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 if (CurrentImageIndex > 0) {
-                                    Log.d("Tag", "back");
                                     CurrentImageIndex = CurrentImageIndex - 1;
                                 }
                                 currentImage = Uri.parse(images.get(CurrentImageIndex));
@@ -157,7 +156,6 @@ public class UpdateAdActivity extends AppCompatActivity {
                         bind.UpdateAddButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-//                                Log.d("Tag", "Deleted");
                                 ImageUriList.addAll(AddImageList);
                                 StorageReference stref = storageReference.child("Properties")
                                         .child(adid).child("images");
@@ -220,7 +218,6 @@ public class UpdateAdActivity extends AppCompatActivity {
     }
 
     public void uploadImages(Uri data, String PropertyID, int i) throws IOException {
-        Log.d("Tag", "Index: " + String.valueOf(i));
         StorageReference mystorageref = storageReference.child("Properties")
                 .child(PropertyID).child("images").child(String.valueOf(i));
         mystorageref.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

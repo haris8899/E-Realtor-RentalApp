@@ -57,7 +57,6 @@ public class ViewSingleAgentRequest extends AppCompatActivity {
         setContentView(bind.getRoot());
         intent = getIntent();
         AgentID = intent.getStringExtra("A1");
-        Log.d("Tag",AgentID);
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
@@ -65,7 +64,6 @@ public class ViewSingleAgentRequest extends AppCompatActivity {
         ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.d("Tag",dataSnapshot.getKey());
                     Name =dataSnapshot.child("username").getValue().toString();
                     image =dataSnapshot.child("profileURI").getValue().toString();
                     email = dataSnapshot.child("email").getValue().toString();

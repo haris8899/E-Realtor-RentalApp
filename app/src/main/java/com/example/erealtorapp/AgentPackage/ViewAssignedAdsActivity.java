@@ -54,16 +54,13 @@ public class ViewAssignedAdsActivity extends AppCompatActivity {
         ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Tag",Integer.toString(datalist.size()));
                 datalist.clear();
                 for(DataSnapshot postsnapshot: snapshot.getChildren())
                 {
                     String title = postsnapshot.child("title").getValue().toString();
                     String oid = postsnapshot.child("status").getValue().toString();
-                    Log.d("Tag","OwnerID: "+oid);
                     String id = postsnapshot.getKey().toString();
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
-                    Log.d("Tag",Integer.toString(rent));
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
                     if(!datalist.contains(new PropertyClass(id,title, rent,image)))

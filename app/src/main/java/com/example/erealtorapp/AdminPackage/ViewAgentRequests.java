@@ -63,8 +63,6 @@ public class ViewAgentRequests extends AppCompatActivity implements RecyclerItem
                     String image = postsnapshot.child("profileURI").getValue().toString();
                     String name = postsnapshot.child("username").getValue().toString();
                     String email = postsnapshot.child("email").getValue().toString();
-                    Log.d("Tag",id);
-                    Log.d("Tag",name);
                     if(!datalist.contains(new AgentClass(id,name,image,email)))
                     {
                             datalist.add(new AgentClass(id, name, image, email));
@@ -86,7 +84,6 @@ public class ViewAgentRequests extends AppCompatActivity implements RecyclerItem
           Intent intent = new Intent(this, ViewSingleAgentRequest.class);
           intent.putExtra("A1",datalist.get(position).getAgentID().toString());
           startActivity(intent);
-        Log.d("Tag","Item Clicked");
 
     }
 }

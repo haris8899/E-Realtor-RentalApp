@@ -70,7 +70,6 @@ public class RecruitAgent extends AppCompatActivity {
                     dilog.dismiss();
                     if(task.isSuccessful()){
                         String phoneno = binding.phonetextBox.getEditText().getText().toString().trim();
-                        Log.d("Tag",phoneno);
                         if (ContextCompat.checkSelfPermission(RecruitAgent.this, Manifest.permission.SEND_SMS)
                                 != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(RecruitAgent.this,

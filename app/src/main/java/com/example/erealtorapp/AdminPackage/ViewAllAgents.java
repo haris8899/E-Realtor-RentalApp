@@ -69,8 +69,6 @@ public class ViewAllAgents extends AppCompatActivity implements RecyclerItemSele
                     String image =postsnapshot.child("profilePicture").getValue().toString();
                     String name = postsnapshot.child("name").getValue().toString();
                     String email = postsnapshot.child("email").getValue().toString();
-                    Log.d("Tag", id);
-                    Log.d("Tag", name);
                     if (!datalist.contains(new AgentClass(id, name, image, email))) {
                         datalist.add(new AgentClass(id, name, image, email));
                         adapter.notifyDataSetChanged();

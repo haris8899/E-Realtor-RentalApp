@@ -60,7 +60,6 @@ public class ViewSingleAd extends AppCompatActivity {
                         for (DataSnapshot postsnap: snapshot.getChildren())
                         {
                             String image =postsnap.getValue().toString();
-                            Log.d("Tag",image);
                             images.add(image);
                         }
                         currentImage = Uri.parse(images.get(0));
@@ -71,7 +70,6 @@ public class ViewSingleAd extends AppCompatActivity {
                             public void onClick(View view) {
                                 if(CurrentImageIndex < totalnumberofimages-1)
                                 {
-                                    Log.d("Tag","forward");
                                     CurrentImageIndex = CurrentImageIndex +1;
                                 }
                                 currentImage = Uri.parse(images.get(CurrentImageIndex));
@@ -83,7 +81,6 @@ public class ViewSingleAd extends AppCompatActivity {
                             public void onClick(View view) {
                                 if(CurrentImageIndex > 0)
                                 {
-                                    Log.d("Tag","back");
                                     CurrentImageIndex = CurrentImageIndex -1;
                                 }
                                 currentImage = Uri.parse(images.get(CurrentImageIndex));

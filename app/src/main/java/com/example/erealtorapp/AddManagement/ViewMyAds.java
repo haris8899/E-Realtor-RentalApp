@@ -55,18 +55,13 @@ public class ViewMyAds extends AppCompatActivity {
         ValueEventListener valueEventListener = myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Tag",Integer.toString(datalist.size()));
                 datalist.clear();
                 for(DataSnapshot postsnapshot: snapshot.getChildren())
                 {
                     String title = postsnapshot.child("title").getValue().toString();
-                    Log.d("Tag","Ownertitle:  "+title);
                     String oid = postsnapshot.child("ownerID").getValue().toString();
-                    Log.d("Tag","OwnerID: "+oid);
-                    Log.d("Tag","authID: "+auth.getUid().toString());
                     String id = postsnapshot.getKey().toString();
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
-                    Log.d("Tag",Integer.toString(rent));
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
                     if(!datalist.contains(new PropertyClass(id,title, rent, image)))
@@ -77,7 +72,6 @@ public class ViewMyAds extends AppCompatActivity {
                              adapter.notifyDataSetChanged();
                          }
                     }
-                    Log.d("Tag","Datalist: "+Integer.toString(datalist.size()));
                 }
                 dilog.cancel();
             }

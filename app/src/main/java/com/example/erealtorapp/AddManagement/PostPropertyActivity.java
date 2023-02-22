@@ -102,7 +102,6 @@ public class PostPropertyActivity extends AppCompatActivity {
     }
     public void uploadImages(Uri data,String PropertyID, int i)
     {
-        Log.d("Tag","Index: "+String.valueOf(i));
         StorageReference mystorageref = storageReference.child("Properties")
                 .child(PropertyID).child("images").child(String.valueOf(i));
         mystorageref.putFile(data)
@@ -113,7 +112,6 @@ public class PostPropertyActivity extends AppCompatActivity {
                 taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.d("Tag",uri.toString());
                         myRef.child(PropertyID).child("images").child(String.valueOf(i)).setValue(uri.toString());
                     }
                 });
@@ -124,21 +122,16 @@ public class PostPropertyActivity extends AppCompatActivity {
     {
         if(CurrentImageIndex > 0)
         {
-            Log.d("Tag","back");
             CurrentImageIndex = CurrentImageIndex -1;
         }
-        Log.d("Tag","Back "+String.valueOf(CurrentImageIndex));
         bind.PropertyImageView.setImageURI(ImageList.get(CurrentImageIndex));
     }
     public void NextImageFunction(View view)
     {
         if(CurrentImageIndex < totalnumberofimages-1)
         {
-            Log.d("Tag","forward");
             CurrentImageIndex = CurrentImageIndex +1;
         }
-        Log.d("Tag","Forward "+String.valueOf(CurrentImageIndex));
-        Log.d("Tag","Total"+ String.valueOf(ImageList.size()));
         bind.PropertyImageView.setImageURI(ImageList.get(CurrentImageIndex));
     }
 }

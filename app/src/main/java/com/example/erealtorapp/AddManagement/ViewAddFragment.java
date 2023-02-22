@@ -74,11 +74,8 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                 for(DataSnapshot postsnapshot: snapshot.getChildren())
                 {
                     String id = postsnapshot.getKey().toString();
-                    Log.d("Tag",id);
                     String title = postsnapshot.child("title").getValue().toString();
-                    Log.d("Tag",title);
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
-                    Log.d("Tag",Integer.toString(rent));
                     String oid = postsnapshot.child("status").getValue().toString();
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
