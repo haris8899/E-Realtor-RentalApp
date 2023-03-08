@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.erealtorapp.AddManagement.SearchAdFragment;
 import com.example.erealtorapp.AdminPackage.adminProfileFragment;
 import com.example.erealtorapp.AgentPackage.AgentFragment;
 import com.example.erealtorapp.ProfileFragment;
@@ -68,6 +69,11 @@ public class UserDashBoardMainActivity extends AppCompatActivity{
                 {
                     bind.btmNavbar.getMenu().findItem(R.id.viewaddicon).setChecked(true);
                     loadFragment(new ViewAddFragment());
+                }
+                else if(itemid == R.id.Usersearchicon)
+                {
+                    bind.btmNavbar.getMenu().findItem(R.id.Usersearchicon).setChecked(true);
+                    loadFragment(new SearchAdFragment());
                 }
                 return false;
             }

@@ -150,9 +150,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         // For navigation menu item clicked
         if (item.getItemId() == R.id.nav_home) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (item.getItemId() == R.id.nav_search) {
-            ((UserDashBoardMainActivity) getActivity()).loadFragment(new SearchAdFragment());
-        }else if (item.getItemId() == R.id.nav_Logout) {
+        } else if (item.getItemId() == R.id.nav_Logout) {
             auth.signOut();
             getActivity().finish();
         }

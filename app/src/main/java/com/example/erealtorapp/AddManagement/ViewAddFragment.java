@@ -1,5 +1,6 @@
 package com.example.erealtorapp.AddManagement;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.FragmentViewAddBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +29,8 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -40,6 +47,7 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
     static ArrayList<PropertyClass> datalist = new ArrayList<PropertyClass>();
     HashSet<PropertyClass> hashSet =new HashSet<PropertyClass>();
     PropertyClass dataClass;
+    Bundle bundle;
     ProgressDialog dilog;
 
     public ViewAddFragment() {
@@ -54,6 +62,10 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bind.viewaddrecyclerview.setLayoutManager(layoutManager);
         bind.viewaddrecyclerview.setItemAnimator(new DefaultItemAnimator());
+        bundle = this.getArguments();
+        ArrayAdapter<CharSequence> spinneradapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sorting_array, android.R.layout.simple_spinner_item);
+        spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter = new ViewAddRecyclerViewAdapter(datalist,this);
         bind.viewaddrecyclerview.setAdapter(adapter);
         dilog=new ProgressDialog(getActivity());
@@ -83,12 +95,52 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                     {
                         if(oid.equals("true"))
                         {
-                            datalist.add(new PropertyClass(id, title, rent,image));
+                            if (bundle !=null)
+                            {
+                                bind.viewaddtitletext.setText("Search Results");
+                                String pricelower = bundle.getString("pricelower");
+                                String pricehigher = bundle.getString("pricehigher");
+                                String sizehigher = bundle.getString("sizehigher");
+                                String sizelower = bundle.getString("sizelower");
+                                if(sizelower == null || sizelower.length() == 0)
+                                {
+                                    sizelower = "0";
+                                }
+                                if(sizehigher==null || sizehigher.length()==0)
+                                {
+                                    sizehigher = String.valueOf(Integer.MAX_VALUE);
+                                }
+                                if(pricelower == null || pricelower.length() == 0)
+                                {
+                                    pricelower = "0";
+                                }
+                                if(pricehigher==null || pricehigher.length()==0)
+                                {
+                                    pricehigher = String.valueOf(Integer.MAX_VALUE);
+                                }
+                                if(rent >= Integer.parseInt(pricelower)
+                                        && rent <= Integer.parseInt(pricehigher))
+                                {
+                                    datalist.add(new PropertyClass(id, title, rent,image));
+                                }
+                            }
+                            else
+                            {
+                                datalist.add(new PropertyClass(id, title, rent,image));
+                            }
+                            Collections.sort(datalist, new Comparator<PropertyClass>() {
+                                @Override
+                                public int compare(PropertyClass propertyClass, PropertyClass t1) {
+                                    return Integer.valueOf(propertyClass.getRent())
+                                            .compareTo(Integer.valueOf(t1.getRent()));
+                                }
+                            });
                             adapter.notifyDataSetChanged();
                         }
                     }
 
                 }
+                //spinnersort();
                 dilog.cancel();
             }
 

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="ViewAdd"
         android:id="@+id/viewaddicon"
-        android:icon="@drawable/ic_baseline_search_24"/>
+        android:icon="@drawable/house"
+        android:title="View Properties" />
+    <item
+        android:id="@+id/Usersearchicon"
+        android:icon="@drawable/search"
+        android:title="Search" />
     <item
         android:id="@+id/Userprofileicon"
         android:icon="@drawable/profilelogo"

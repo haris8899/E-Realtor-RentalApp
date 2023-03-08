@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.erealtorapp.R;
-
+import com.example.erealtorapp.databinding.FragmentSearchAdBinding;
 
 
 public class SearchAdFragment extends Fragment {
 
+    FragmentSearchAdBinding bind;
     public SearchAdFragment() {
         // Required empty public constructor
     }
@@ -24,12 +25,33 @@ public class SearchAdFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_ad, container, false);
+        bind = FragmentSearchAdBinding.inflate(getLayoutInflater());
+        View view = bind.getRoot();
+        bind.ApplyFiltersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    String pricesmaller = bind.pricelowertext.getText().toString();
+                    String priceHigher = bind.pricehighertext.getText().toString();
+                    String sizesmaller = bind.SizeLowertext.getText().toString();
+                    String sizeHigher = bind.SizeHigherText.getText().toString();
+                    bundle.putString("pricelower", pricesmaller);
+                    bundle.putString("pricehigher",priceHigher);
+                    bundle.putString("sizelower", sizesmaller);
+                    bundle.putString("sizehigher",sizeHigher);
+                    ViewAddFragment fragment = new ViewAddFragment();
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.DashboardContainer, fragment)
+                            .commit();
+            }
+        });
+        return view;
     }
 }
