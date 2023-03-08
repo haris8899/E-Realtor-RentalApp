@@ -83,7 +83,7 @@ public class ViewAddRecyclerViewAdapter
                 String FilterPattern = charSequence.toString().toLowerCase().trim();
                 for(PropertyClass add: addListfil)
                 {
-                    if(add.getTitle().toLowerCase().contains(charSequence))
+                    if(add.getAddress().toLowerCase().contains(charSequence))
                     {
                         FilteredList.add(add);
                     }

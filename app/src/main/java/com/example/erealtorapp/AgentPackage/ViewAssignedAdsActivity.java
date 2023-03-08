@@ -61,13 +61,14 @@ public class ViewAssignedAdsActivity extends AppCompatActivity {
                     String oid = postsnapshot.child("status").getValue().toString();
                     String id = postsnapshot.getKey().toString();
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
+                    int size = Integer.parseInt(postsnapshot.child("plotsize").getValue().toString());
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
-                    if(!datalist.contains(new PropertyClass(id,title, rent,image)))
+                    if(!datalist.contains(new PropertyClass(id,title, rent,size,image)))
                     {
                         if(oid.equals("false"))
                         {
-                            datalist.add(new PropertyClass(id,title, rent,image));
+                            datalist.add(new PropertyClass(id,title, rent,size,image));
                         }
                         adapter.notifyDataSetChanged();
                     }

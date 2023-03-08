@@ -88,10 +88,11 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                     String id = postsnapshot.getKey().toString();
                     String title = postsnapshot.child("title").getValue().toString();
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
+                    int size = Integer.parseInt(postsnapshot.child("plotsize").getValue().toString());
                     String oid = postsnapshot.child("status").getValue().toString();
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     List<String> image = postsnapshot.child("images").getValue(t);
-                    if(!datalist.contains(new PropertyClass(id, title, rent,image)))
+                    if(!datalist.contains(new PropertyClass(id, title, rent,size,image)))
                     {
                         if(oid.equals("true"))
                         {
@@ -119,14 +120,16 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                                     pricehigher = String.valueOf(Integer.MAX_VALUE);
                                 }
                                 if(rent >= Integer.parseInt(pricelower)
-                                        && rent <= Integer.parseInt(pricehigher))
+                                        && rent <= Integer.parseInt(pricehigher)
+                                        && size >=Integer.parseInt(sizelower)
+                                        && size <= Integer.parseInt(sizehigher))
                                 {
-                                    datalist.add(new PropertyClass(id, title, rent,image));
+                                    datalist.add(new PropertyClass(id, title, rent,size,image));
                                 }
                             }
                             else
                             {
-                                datalist.add(new PropertyClass(id, title, rent,image));
+                                datalist.add(new PropertyClass(id, title, rent,size,image));
                             }
                             Collections.sort(datalist, new Comparator<PropertyClass>() {
                                 @Override
