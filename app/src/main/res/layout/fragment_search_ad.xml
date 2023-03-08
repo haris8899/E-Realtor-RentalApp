@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="40dp"
-                    android:text="City"
+                    android:text="Location"
                     android:textColor="@color/gold"
                     android:textSize="25sp" />
 
@@ -61,9 +61,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:hint="City">
+                    android:hint="Location">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Locationtext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -74,7 +75,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
-                    android:text="Location"
+                    android:text="No of Rooms"
                     android:textColor="@color/gold"
                     android:textSize="25sp" />
 
@@ -84,11 +85,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:hint="Location">
+                    android:hint="No of rooms">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Noofroomstext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:textColor="@color/txt_Background" />
                 </com.google.android.material.textfield.TextInputLayout>
 

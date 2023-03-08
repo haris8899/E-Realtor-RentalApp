@@ -15,9 +15,10 @@
 
         <ImageView
             android:id="@+id/addmainimagetext"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="150dp"
             android:layout_weight="5"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:srcCompat="@tools:sample/avatars" />

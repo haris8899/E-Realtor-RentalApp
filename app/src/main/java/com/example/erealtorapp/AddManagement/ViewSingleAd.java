@@ -40,6 +40,7 @@ public class ViewSingleAd extends AppCompatActivity {
         bind = ActivityViewSingleAdBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         intent = getIntent();
+        getSupportActionBar().hide();
         adid = intent.getStringExtra("A1");
         data =FirebaseDatabase.getInstance();
         myref = data.getReference("Properties");

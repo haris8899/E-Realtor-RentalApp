@@ -24,6 +24,15 @@ public class PropertyClass {
         Title = title;
         Rent = rent;
     }
+    public PropertyClass(String id, String title,String address,int noofrooms, int rent, int plotsize, List<String> image) {
+        this.id = id;
+        Title = title;
+        Rent = rent;
+        this.Address = address;
+        this.NoofRooms = noofrooms;
+        this.images = image;
+        this.plotsize = plotsize;
+    }
     public PropertyClass(String id, String title, int rent, int plotsize, List<String> image) {
         this.id = id;
         Title = title;

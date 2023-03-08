@@ -87,6 +87,9 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                 {
                     String id = postsnapshot.getKey().toString();
                     String title = postsnapshot.child("title").getValue().toString();
+                    String address = postsnapshot.child("address").getValue().toString();
+                    int noofrooms = Integer
+                            .parseInt(postsnapshot.child("noofRooms").getValue().toString());
                     int rent = Integer.parseInt(postsnapshot.child("rent").getValue().toString());
                     int size = Integer.parseInt(postsnapshot.child("plotsize").getValue().toString());
                     String oid = postsnapshot.child("status").getValue().toString();
@@ -103,6 +106,16 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                                 String pricehigher = bundle.getString("pricehigher");
                                 String sizehigher = bundle.getString("sizehigher");
                                 String sizelower = bundle.getString("sizelower");
+                                String location = bundle.getString("location");
+                                String rooms = bundle.getString("rooms");
+                                if(location ==null)
+                                {
+                                    location = "";
+                                }
+                                if(rooms ==null || rooms.length()==0)
+                                {
+                                    rooms = "0";
+                                }
                                 if(sizelower == null || sizelower.length() == 0)
                                 {
                                     sizelower = "0";
@@ -122,9 +135,12 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
                                 if(rent >= Integer.parseInt(pricelower)
                                         && rent <= Integer.parseInt(pricehigher)
                                         && size >=Integer.parseInt(sizelower)
-                                        && size <= Integer.parseInt(sizehigher))
+                                        && size <= Integer.parseInt(sizehigher)
+                                        && noofrooms >= Integer.parseInt(rooms)
+                                        && address.toLowerCase()
+                                        .contains(location.toLowerCase().trim()))
                                 {
-                                    datalist.add(new PropertyClass(id, title, rent,size,image));
+                                    datalist.add(new PropertyClass(id, title,address,noofrooms, rent,size,image));
                                 }
                             }
                             else
