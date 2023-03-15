@@ -21,6 +21,7 @@ import com.example.erealtorapp.AddManagement.PostPropertyActivity;
 import com.example.erealtorapp.AddManagement.SearchAdFragment;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
+import com.example.erealtorapp.ContractManagement.ViewContract;
 import com.example.erealtorapp.UserDashboardPackage.UserDashBoardMainActivity;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -153,6 +154,11 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         } else if (item.getItemId() == R.id.nav_Logout) {
             auth.signOut();
             getActivity().finish();
+        }
+        else if(item.getItemId() == R.id.user_ViewContractrequests_DrawerMenu)
+        {
+            Intent intent = new Intent(getActivity(), ViewContract.class);
+            startActivity(intent);
         }
 
 

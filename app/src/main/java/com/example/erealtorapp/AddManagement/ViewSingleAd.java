@@ -12,8 +12,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
+import com.example.erealtorapp.ContractManagement.SendContractRequestActivity;
+import com.example.erealtorapp.ContractManagement.ViewContract;
 import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.ActivityViewSingleAdBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +33,7 @@ public class ViewSingleAd extends AppCompatActivity {
     String adid;
     FirebaseDatabase data;
     DatabaseReference myref;
+    FirebaseAuth auth;
     ArrayList<String> images;
     Uri currentImage;
     int CurrentImageIndex = 0;
@@ -43,6 +47,7 @@ public class ViewSingleAd extends AppCompatActivity {
         getSupportActionBar().hide();
         adid = intent.getStringExtra("A1");
         data =FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
         myref = data.getReference("Properties");
         images = new ArrayList<String>();
         ValueEventListener valueEventListener= myref.addValueEventListener(new ValueEventListener() {
@@ -55,6 +60,7 @@ public class ViewSingleAd extends AppCompatActivity {
                 bind.SizeOfPlotText.setText(snapshot.child(adid).child("plotsize").getValue().toString());
                 bind.RentAmountText.setText(snapshot.child(adid).child("rent").getValue().toString());
                 DatabaseReference ref1 = snapshot.child(adid).child("images").getRef();
+                String owner = snapshot.child(adid).child("ownerID").getValue().toString();
                 ValueEventListener valuei = ref1.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -86,6 +92,23 @@ public class ViewSingleAd extends AppCompatActivity {
                                 }
                                 currentImage = Uri.parse(images.get(CurrentImageIndex));
                                 Picasso.get().load(currentImage).into(bind.PropertyImageView);
+                            }
+                        });
+                        if(owner.equals(auth.getUid()))
+                        {
+                            bind.SendContractRequestBtn.setVisibility(View.INVISIBLE);
+                            bind.CallOwnerBtn.setVisibility(View.INVISIBLE);
+                        }
+
+                        bind.SendContractRequestBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(ViewSingleAd.this
+                                        , SendContractRequestActivity.class);
+                                intent.putExtra("A1",owner);
+                                intent.putExtra("A2",adid);
+                                startActivity(intent);
+                                finish();
                             }
                         });
                     }

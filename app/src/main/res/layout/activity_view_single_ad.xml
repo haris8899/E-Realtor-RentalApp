@@ -191,6 +191,19 @@
                 android:text="TextView"
                 android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/SendContractRequestBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="Send Contract Request" />
+            <Button
+                android:id="@+id/CallOwnerBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="Call Owner" />
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

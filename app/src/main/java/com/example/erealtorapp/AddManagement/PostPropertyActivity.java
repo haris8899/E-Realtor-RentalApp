@@ -35,7 +35,6 @@ public class PostPropertyActivity extends AppCompatActivity {
     List<Uri> ImageList;
     FirebaseDatabase database;
     FirebaseAuth auth;
-    Bitmap bmp;
     String PropertyID;
     DatabaseReference myRef;
     StorageReference storageReference;
@@ -49,6 +48,7 @@ public class PostPropertyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityPostPropertyBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        getSupportActionBar().hide();
         ImageList = new ArrayList<Uri>();
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -88,17 +88,13 @@ public class PostPropertyActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Uri uri = data.getData();
-        bind.PropertyImageView.setImageURI(uri);
-        ImageList.add(uri);
-        totalnumberofimages = totalnumberofimages + 1;
-        CurrentImageIndex = totalnumberofimages -1;
-      //  images.add(uri);
-//        try {
-//            bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver() , uri);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        bmpImages.add(bmp);
+        if(uri != null)
+        {
+            bind.PropertyImageView.setImageURI(uri);
+            ImageList.add(uri);
+            totalnumberofimages = totalnumberofimages + 1;
+            CurrentImageIndex = totalnumberofimages -1;
+        }
     }
     public void uploadImages(Uri data,String PropertyID, int i)
     {

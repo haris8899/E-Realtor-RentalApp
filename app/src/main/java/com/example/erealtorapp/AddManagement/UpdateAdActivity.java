@@ -197,24 +197,14 @@ public class UpdateAdActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Uri uri = data.getData();
-        bind.PropertyImageView.setImageURI(uri);
-        images.add(uri.toString());
-        AddImageList.add(uri);
-        totalnumberofimages = totalnumberofimages + 1;
-        CurrentImageIndex = totalnumberofimages -1;
-        //  images.add(uri);
-//        try {
-//            bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver() , uri);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        bmpImages.add(bmp);
-    }
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
+        if(uri != null)
+        {
+            bind.PropertyImageView.setImageURI(uri);
+            images.add(uri.toString());
+            AddImageList.add(uri);
+            totalnumberofimages = totalnumberofimages + 1;
+            CurrentImageIndex = totalnumberofimages -1;
+        }
     }
 
     public void uploadImages(Uri data, String PropertyID, int i) throws IOException {

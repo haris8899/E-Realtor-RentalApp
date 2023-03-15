@@ -20,13 +20,13 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/user_GenerateContract_DrawerMenu"
-                    android:title="Generate Contract"
-                    android:icon="@drawable/contract"/>
+                    android:id="@+id/view_contracts_menu"
+                    android:icon="@drawable/contract"
+                    android:title="View Contract" />
                 <item
-                    android:id="@+id/user_ViewContract_DrawerMenu"
-                    android:title="View Contract"
-                    android:icon="@drawable/scontract"/>
+                    android:id="@+id/user_ViewContractrequests_DrawerMenu"
+                    android:icon="@drawable/scontract"
+                    android:title=" View Contract Requests" />
             </group>
         </menu>
     </item>
