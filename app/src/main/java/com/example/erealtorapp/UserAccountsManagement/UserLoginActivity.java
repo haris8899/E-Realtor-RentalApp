@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -69,6 +71,13 @@ public class UserLoginActivity extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             Intent intent = new Intent(UserLoginActivity.this,
                                                     UserDashBoardMainActivity.class);
+                                            SharedPreferences sharedpreference =
+                                                    getSharedPreferences("userfiles", 0);
+                                            SharedPreferences.Editor editor = sharedpreference.edit();
+                                            editor.clear();
+                                            editor.commit();
+                                            editor.putString("A1",auth.getUid());
+                                            editor.commit();
                                             intent.putExtra("A1",
                                                     snapshot.child(auth
                                                             .getUid()

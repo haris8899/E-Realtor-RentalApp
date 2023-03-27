@@ -1,20 +1,15 @@
 package com.example.erealtorapp.ContractManagement;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.ActivityViewContractBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class ViewContract extends AppCompatActivity {
+public class ViewContractSingle extends AppCompatActivity {
 
     ActivityViewContractBinding bind;
     FirebaseDatabase database;

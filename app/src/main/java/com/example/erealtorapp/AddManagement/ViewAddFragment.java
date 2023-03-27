@@ -63,9 +63,6 @@ public class ViewAddFragment extends Fragment implements RecyclerItemSelectListe
         bind.viewaddrecyclerview.setLayoutManager(layoutManager);
         bind.viewaddrecyclerview.setItemAnimator(new DefaultItemAnimator());
         bundle = this.getArguments();
-        ArrayAdapter<CharSequence> spinneradapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.sorting_array, android.R.layout.simple_spinner_item);
-        spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter = new ViewAddRecyclerViewAdapter(datalist,this);
         bind.viewaddrecyclerview.setAdapter(adapter);
         dilog=new ProgressDialog(getActivity());

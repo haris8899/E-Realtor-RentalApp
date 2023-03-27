@@ -4,17 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 
 import com.example.erealtorapp.ContractManagement.SendContractRequestActivity;
-import com.example.erealtorapp.ContractManagement.ViewContract;
-import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.ActivityViewSingleAdBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

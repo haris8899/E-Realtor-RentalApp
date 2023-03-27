@@ -6,9 +6,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string-array name="sorting_array">
-        <item>Rent: High to Low</item>
-        <item>Rent: Low to High</item>
+    <string-array name="duration_array">
+        <item>6 months</item>
+        <item>1 year</item>
+        <item>2 year</item>
     </string-array>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

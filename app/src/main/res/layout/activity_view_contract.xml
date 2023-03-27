@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ContractManagement.ViewContract">
+    tools:context=".ContractManagement.ViewContractSingle">
 
     <LinearLayout
         android:id="@+id/l1"

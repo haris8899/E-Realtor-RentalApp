@@ -6,8 +6,18 @@ public class ContractClass {
     String LandlordID;
     String TenantID;
     String PropertyID;
+    String ContractID;
     String RentAmount;
     String Duration;
+
+    public String getContractID() {
+        return ContractID;
+    }
+
+    public void setContractID(String contractID) {
+        ContractID = contractID;
+    }
+
     String Status;
 
     public String getStatus() {
@@ -68,12 +78,24 @@ public class ContractClass {
         Duration = duration;
     }
 
-    public ContractClass(String landlordID, String tenantID, String PropertyID, String rentAmount
+    public ContractClass(String ContractID, String landlordID, String tenantID, String PropertyID,String Status, String rentAmount
+            , String duration) {
+        this.ContractID = ContractID;
+        LandlordID = landlordID;
+        TenantID = tenantID;
+        RentAmount = rentAmount;
+        Duration = duration;
+        this.Status = Status;
+        this.PropertyID = PropertyID;
+    }
+
+    public ContractClass(String landlordID, String tenantID, String PropertyID,String Status, String rentAmount
             , String duration) {
         LandlordID = landlordID;
         TenantID = tenantID;
         RentAmount = rentAmount;
         Duration = duration;
+        this.Status = Status;
         this.PropertyID = PropertyID;
     }
 

@@ -7,13 +7,19 @@
     android:orientation="vertical"
     tools:context=".ContractManagement.SendContractRequestActivity">
 
+    <Spinner
+        android:id="@+id/Durationspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
+
     <EditText
         android:id="@+id/ContractInitiateMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Please Enter Message: \n For example: \nPlease start contract for 2 years with Rs 2000 Rent"
-        android:lines="8" />
+        android:lines="3" />
 
     <Button
         android:id="@+id/SendRequestbtn"

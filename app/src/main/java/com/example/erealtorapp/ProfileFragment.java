@@ -18,11 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.erealtorapp.AddManagement.PostPropertyActivity;
-import com.example.erealtorapp.AddManagement.SearchAdFragment;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
-import com.example.erealtorapp.ContractManagement.ViewContract;
-import com.example.erealtorapp.UserDashboardPackage.UserDashBoardMainActivity;
+import com.example.erealtorapp.ContractManagement.ViewContractSingle;
+import com.example.erealtorapp.ContractManagement.ViewMyContracts;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -157,13 +156,10 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         }
         else if(item.getItemId() == R.id.user_ViewContractrequests_DrawerMenu)
         {
-            Intent intent = new Intent(getActivity(), ViewContract.class);
+            Intent intent = new Intent(getActivity(), ViewMyContracts.class);
             startActivity(intent);
         }
-
-
-        auth.signOut();
-        getActivity().finish();
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
