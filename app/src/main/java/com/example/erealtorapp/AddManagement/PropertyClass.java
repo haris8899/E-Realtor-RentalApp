@@ -45,6 +45,7 @@ public class PropertyClass {
         Title = title;
         Rent = rent;
     }
+
     public String getId() {
         return id;
     }
