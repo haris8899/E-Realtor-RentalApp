@@ -1,16 +1,26 @@
 package com.example.erealtorapp.SplashScreen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.erealtorapp.R;
+import com.example.erealtorapp.UserAccountsManagement.UserLoginActivity;
+import com.example.erealtorapp.UserDashboardPackage.UserDashBoardMainActivity;
 import com.example.erealtorapp.databinding.ActivitySplashBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -44,9 +54,37 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-               /* Intent intent=new Intent(SplashActivity.this, User_Dashboard_Activity.class);
-                startActivity(intent);
-                finish();*/
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                if(auth.getCurrentUser()==null)
+                {
+                    Intent intent=new Intent(SplashActivity.this, UserLoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myref = database.getReference("Users");
+                    ValueEventListener valueEventListener =
+                            myref.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Intent intent = new Intent(SplashActivity.this,
+                                            UserDashBoardMainActivity.class);
+                                    intent.putExtra("A1",
+                                            snapshot.child(auth
+                                                            .getUid()
+                                                            .toString())
+                                                    .child("type")
+                                                    .getValue().toString());
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                }
             }
         },5000);
 
