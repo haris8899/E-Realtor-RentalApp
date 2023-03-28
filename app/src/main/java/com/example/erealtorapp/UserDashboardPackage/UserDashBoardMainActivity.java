@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -39,8 +40,9 @@ public class UserDashBoardMainActivity extends AppCompatActivity{
         bind = ActivityUserDashBoardMainBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         getSupportActionBar().hide();
-        Intent intent = getIntent();
-        type = intent.getStringExtra("A1");
+        SharedPreferences sharedpreference =
+                getSharedPreferences("userfiles", 0);
+        type = sharedpreference.getString("A2","");
         Log.d("Tag",type);
         data = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();

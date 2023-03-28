@@ -77,13 +77,12 @@ public class UserLoginActivity extends AppCompatActivity {
                                             editor.clear();
                                             editor.commit();
                                             editor.putString("A1",auth.getUid());
-                                            editor.commit();
-                                            intent.putExtra("A1",
-                                                    snapshot.child(auth
+                                            editor.putString("A2",snapshot.child(auth
                                                             .getUid()
                                                             .toString())
-                                                            .child("type")
-                                                            .getValue().toString());
+                                                    .child("type")
+                                                    .getValue().toString());
+                                            editor.commit();
                                             startActivity(intent);
                                             dilog.cancel();
                                             finish();

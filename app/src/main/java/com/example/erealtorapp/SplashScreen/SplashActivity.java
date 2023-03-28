@@ -61,29 +61,10 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myref = database.getReference("Users");
-                    ValueEventListener valueEventListener =
-                            myref.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    Intent intent = new Intent(SplashActivity.this,
-                                            UserDashBoardMainActivity.class);
-                                    intent.putExtra("A1",
-                                            snapshot.child(auth
-                                                            .getUid()
-                                                            .toString())
-                                                    .child("type")
-                                                    .getValue().toString());
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                    Intent intent = new Intent(SplashActivity.this,
+                            UserDashBoardMainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         },5000);

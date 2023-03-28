@@ -2,7 +2,9 @@ package com.example.erealtorapp.ContractManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.erealtorapp.databinding.ActivityViewContractBinding;
@@ -19,6 +21,9 @@ public class ViewContractSingle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityViewContractBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        Intent intent = getIntent();
+        String CID = intent.getStringExtra("A1");
+        Log.d("Tag",CID);
         database = FirebaseDatabase.getInstance();
         myref = database.getReference();
         bind.l2.setVisibility(View.INVISIBLE);

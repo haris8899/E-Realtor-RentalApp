@@ -96,6 +96,7 @@ public class MyContractAdapter extends RecyclerView.Adapter<MyContractAdapter.Vi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,ViewContractSingle.class);
+                intent.putExtra("A1",data.getContractID());
                 context.startActivity(intent);
             }
         });
