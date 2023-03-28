@@ -154,7 +154,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
             auth.signOut();
             getActivity().finish();
         }
-        else if(item.getItemId() == R.id.user_ViewContractrequests_DrawerMenu)
+        else if(item.getItemId() == R.id.view_contracts_menu)
         {
             Intent intent = new Intent(getActivity(), ViewMyContracts.class);
             startActivity(intent);

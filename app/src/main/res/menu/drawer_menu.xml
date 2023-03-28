@@ -23,10 +23,6 @@
                     android:id="@+id/view_contracts_menu"
                     android:icon="@drawable/contract"
                     android:title="View Contract" />
-                <item
-                    android:id="@+id/user_ViewContractrequests_DrawerMenu"
-                    android:icon="@drawable/scontract"
-                    android:title=" View Contract Requests" />
             </group>
         </menu>
     </item>
