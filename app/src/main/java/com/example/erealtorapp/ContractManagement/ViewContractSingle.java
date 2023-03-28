@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.erealtorapp.AddManagement.MyAddAdapter;
 import com.example.erealtorapp.R;
@@ -30,6 +31,7 @@ public class ViewContractSingle extends AppCompatActivity {
     ActivityViewContractBinding bind;
     FirebaseAuth auth;
     ChatAdapter adapter;
+    String CID;
     FirebaseDatabase database;
     DatabaseReference myref;
     ArrayList<MessagesClass> messageList;
@@ -39,7 +41,7 @@ public class ViewContractSingle extends AppCompatActivity {
         bind = ActivityViewContractBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         Intent intent = getIntent();
-        String CID = intent.getStringExtra("A1");
+        CID = intent.getStringExtra("A1");
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myref = database.getReference();
@@ -79,8 +81,11 @@ public class ViewContractSingle extends AppCompatActivity {
                 bind.LandlordNameText.setText(Landlordname);
                 bind.TenantNameText.setText(Tenantname);
                 bind.StatusText.setText(Status);
-                bind.RentText.setText(rent);
-                bind.Rentedit.setText(rent);
+                if(!rent.equals("Not Set"))
+                {
+                    bind.RentText.setText(rent);
+                    bind.Rentedit.setText(rent);
+                }
                 switch (duration)
                 {
                     case "0.5":
@@ -98,17 +103,92 @@ public class ViewContractSingle extends AppCompatActivity {
                 }
                 bind.durationText.setText(durationString);
                 bind.durationedit.setSelection(durationint);
+                bind.AcceptContractButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(Status.equals("Request") && auth.getCurrentUser().getUid().equals(Landlordid))
+                        {
+                            if(bind.Rentedit.getText().toString().equals(""))
+                            {
+                                Toast.makeText(ViewContractSingle.this,
+                                        "Please Set Rent Amount",Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                myref.child("Contracts").child(CID)
+                                        .child("rentAmount").setValue(bind.Rentedit.getText().toString());
+                                myref.child("Contracts").child(CID)
+                                        .child("status").setValue("Accepted");
+                                int duration = bind.durationedit.getSelectedItemPosition();
+                                String durationstring = "0.5";
+                                switch (duration)
+                                {
+                                    case 0:
+                                        durationstring ="0.5";
+                                        break;
+                                    case 1:
+                                        durationstring ="1";
+                                        break;
+                                    case 2:
+                                        durationstring ="2";
+                                        break;
+
+                                }
+                                myref.child("Contracts").child(CID)
+                                        .child("duration").setValue(durationstring);
+
+                                String message = "Contract Has been Accepted";
+                                SendMessage("System",message);
+                            }
+                        }
+                        if(Status.equals("Accepted") && auth.getCurrentUser().getUid().equals(Tenantid))
+                        {
+                            myref.child("Contracts").child(CID)
+                                    .child("status").setValue("Active");
+                            String message = "Contract Has been Accepted by Tenant";
+                            SendMessage("System",message);
+                        }
+                    }
+                });
+                bind.RejectContractButtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(Status.equals("Request") && auth.getCurrentUser().getUid().equals(Landlordid))
+                        {
+                            myref.child("Contracts").child(CID).removeValue();
+                        } else if(Status.equals("Accepted") && auth.getCurrentUser().getUid().equals(Tenantid))
+                        {
+                            myref.child("Contracts").child(CID)
+                                    .child("status").setValue("Request");
+                            String message = "Contract Has been Rejected by Tenant";
+                            SendMessage("System",message);
+                        }
+                    }
+                });
                 bind.LandlordLayout.setVisibility(View.GONE);
                 bind.l2.setVisibility(View.GONE);
                 if(Landlordid.equals(auth.getCurrentUser().getUid()))
                 {
                     bind.TenantLayout.setVisibility(View.GONE);
                     bind.LandlordLayout.setVisibility(View.VISIBLE);
-                    bind.l2.setVisibility(View.VISIBLE);
+                    if(Status.equals("Accepted") || Status.equals("Active"))
+                    {
+                        bind.TenantLayout.setVisibility(View.VISIBLE);
+                        bind.LandlordLayout.setVisibility(View.GONE);
+                        bind.l2.setVisibility(View.GONE);
+                    } else {
+                        bind.l2.setVisibility(View.VISIBLE);
+                    }
                 }
                 else if (Tenantid.equals(auth.getCurrentUser().getUid()) && Status.equals("Accepted"))
                 {
                     bind.l2.setVisibility(View.VISIBLE);
+                    if(Status.equals("Accepted"))
+                    {
+                        bind.l2.setVisibility(View.VISIBLE);
+                    } else {
+                        bind.l2.setVisibility(View.GONE);
+                    }
                 }
                 dialog.cancel();
             }
@@ -131,15 +211,13 @@ public class ViewContractSingle extends AppCompatActivity {
                     messageList.add(new MessagesClass(Sender,message));
                     Log.d("Tag","Length "+messageList.size());
                     adapter.notifyDataSetChanged();
+                    bind.messageRecyclerView.scrollToPosition(adapter.getItemCount()-1);
                 }
                 bind.SendMessageButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String message = bind.EnterMessageText.getText().toString();
-                        MessagesClass newmessage =
-                                new MessagesClass(auth.getCurrentUser().getUid(),message);
-                        int index = messageList.size();
-                        myref2.child(Integer.toString(index)).setValue(newmessage);
+                        SendMessage(auth.getCurrentUser().getUid(),message);
                         bind.EnterMessageText.setText("");
                     }
                 });
@@ -151,5 +229,13 @@ public class ViewContractSingle extends AppCompatActivity {
             }
         });
 
+    }
+    public void SendMessage(String Sender, String Message)
+    {
+        MessagesClass newmessage =
+                new MessagesClass(Sender,Message);
+        int index = bind.messageRecyclerView.getAdapter().getItemCount();
+        myref.child("Contracts").child(CID).child("messages")
+                .child(Integer.toString(index)).setValue(newmessage);
     }
 }

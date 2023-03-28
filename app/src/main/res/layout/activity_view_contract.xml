@@ -35,13 +35,14 @@
                 android:gravity="center"
                 android:text="Tenant"
                 android:textSize="15dp" />
+
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:text="Stat"
+                android:text="Status"
                 android:textSize="15dp" />
             <TextView
                 android:id="@+id/textView3"
@@ -105,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center"
-                    android:text="Rent"
+                    android:text="Not Set"
                     android:textSize="15dp" />
 
                 <TextView
@@ -130,7 +131,7 @@
                     android:layout_margin="10dp"
                     android:gravity="center"
                     android:inputType="number"
-                    android:hint="Rent"
+                    android:hint="Not Set"
                     android:textSize="15dp" />
 
                 <Spinner
@@ -175,7 +176,8 @@
         android:id="@+id/messageRecyclerView"
         android:layout_below="@+id/l2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -193,6 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:ems="10"
+            android:layout_gravity="center"
             android:hint="Enter Message"
             android:inputType="textPersonName"
             android:minHeight="48dp" />
@@ -201,6 +204,7 @@
             android:id="@+id/SendMessageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/ic_baseline_arrow_right_24" />
     </LinearLayout>

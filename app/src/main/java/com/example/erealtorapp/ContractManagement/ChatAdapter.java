@@ -26,6 +26,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     String itemid;
     private static final int VIEW_TYPE_ITEM_1 = 1;
     private static final int VIEW_TYPE_ITEM_2 = 2;
+    private static final int VIEW_TYPE_ITEM_3 = 3;
     public ChatAdapter(ArrayList<MessagesClass> messagesList)
     {
         this.messagesList = messagesList;
@@ -40,6 +41,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.sent_message,parent,false);
         }
+        else if(viewType == VIEW_TYPE_ITEM_3)
+        {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.system_message,parent,false);
+        }
         else
         {
             view = LayoutInflater.from(parent.getContext())
@@ -53,6 +59,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         if(messagesList.get(position).getSender().equals(auth.getCurrentUser().getUid()))
         {
             return VIEW_TYPE_ITEM_1;
+        } else if(messagesList.get(position).getSender().equals("System")){
+            return VIEW_TYPE_ITEM_3;
         }
         else return VIEW_TYPE_ITEM_2;
     }
@@ -63,6 +71,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         if(message.getSender().equals(auth.getCurrentUser().getUid()))
         {
             holder.sentmessage.setText(message.getMessage());
+        }
+        else if(message.getSender().equals("System"))
+        {
+            holder.sysmessage.setText(message.getMessage());
         }
         else {
             holder.receivedmessage.setText(message.getMessage());
@@ -78,9 +90,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         TextView sentmessage;
         TextView receivedmessage;
+        TextView sysmessage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             sentmessage = itemView.findViewById(R.id.sent_messagetext);
+            sysmessage = itemView.findViewById(R.id.sys_messagetext);
             receivedmessage = itemView.findViewById(R.id.receive_messagetext);
         }
     }
