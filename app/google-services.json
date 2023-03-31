@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "460419539458",
-    "project_id": "erealtorapp-131c9",
-    "storage_bucket": "erealtorapp-131c9.appspot.com"
+    "project_number": "1038776194714",
+    "project_id": "erealtorapp-5404b",
+    "storage_bucket": "erealtorapp-5404b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:460419539458:android:7613817ed5840afde7bd1b",
+        "mobilesdk_app_id": "1:1038776194714:android:f91cbb002ada02d8667123",
         "android_client_info": {
           "package_name": "com.example.erealtorapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "460419539458-j9v0s9de7ji6j2041620kljglcjcgb3u.apps.googleusercontent.com",
+          "client_id": "1038776194714-erp4lrki1voul1oqmjdt7fus69o96jk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.erealtorapp",
+            "certificate_hash": "f00a8a1abdcda4c389795fa45259244b5b998bc8"
+          }
+        },
+        {
+          "client_id": "1038776194714-3sqb4oaapb4vb48cjir09ehfcqrujema.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBThob6uyh8TnykF91inGw3W8b5FO8GpW8"
+          "current_key": "AIzaSyAxqGyq0nMcPoLMfY2Mm0VG2qbAebXDhMw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "460419539458-j9v0s9de7ji6j2041620kljglcjcgb3u.apps.googleusercontent.com",
+              "client_id": "1038776194714-3sqb4oaapb4vb48cjir09ehfcqrujema.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

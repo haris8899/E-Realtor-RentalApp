@@ -68,6 +68,13 @@ public class adminProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });*/
+        bind.menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                getActivity().finish();
+            }
+        });
         bind.viewallagentsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

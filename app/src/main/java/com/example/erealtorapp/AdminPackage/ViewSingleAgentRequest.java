@@ -134,11 +134,10 @@ public class ViewSingleAgentRequest extends AppCompatActivity {
         bind.AgentSendMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent email = new Intent(Intent.ACTION_SEND);
-                //need this to prompts email client only
-                email.setType("message/rfc822");
-
-                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                String to = bind.Agentemailtext.getText().toString();
+                String subject = "Agent Request";
+                String message = "";
+                SendEmail(to,subject,message);
             }
         });
         bind.AgentAcceptBtn.setOnClickListener(new View.OnClickListener() {

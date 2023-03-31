@@ -22,8 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.erealtorapp.AddManagement.PropertyClass;
 import com.example.erealtorapp.AddManagement.ViewSingleAd;
 import com.example.erealtorapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -97,10 +100,21 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
         holder.contactbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent email = new Intent(Intent.ACTION_SEND);
-                //need this to prompts email client only
-                email.setType("message/rfc822");
-                context.startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                DatabaseReference myref2 = FirebaseDatabase.getInstance().getReference("Users");
+                myref2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String to = snapshot.child(data.getOwnerID()).child("email").getValue().toString();
+                        String subject = "About Posted Property";
+                        String message = "";
+                        SendEmail(to,subject,message);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 

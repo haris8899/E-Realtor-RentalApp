@@ -67,7 +67,7 @@ public class UserSignupActivity extends AppCompatActivity {
                         dilog.dismiss();
                         if (task.isSuccessful()) {
                             //calling singnup constructor for UserRegistrationclass
-                            UserClass User = UserClass.getInstance(binding.usernameTextbox.getEditText().getText().toString().trim(), binding.EmailSignupText.getEditText().getText().toString().trim(), binding.PasswordSignUpTextBox.getEditText().getText().toString().trim(), binding.phonetextBox.getEditText().getText().toString().trim(), "Simple User", BitmaptoString(bmap));
+                            UserClass User = new UserClass(binding.usernameTextbox.getEditText().getText().toString().trim(), binding.EmailSignupText.getEditText().getText().toString().trim(), binding.PasswordSignUpTextBox.getEditText().getText().toString().trim(), binding.phonetextBox.getEditText().getText().toString().trim(), "Simple User", BitmaptoString(bmap));
 
                             //get Userid from Authentication portal
                             String id = task.getResult().getUser().getUid();

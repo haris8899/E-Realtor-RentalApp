@@ -33,12 +33,19 @@ public class PropertyClass {
         this.images = image;
         this.plotsize = plotsize;
     }
-    public PropertyClass(String id, String title, int rent, int plotsize, List<String> image) {
+    public PropertyClass(String id, String title, int rent, String OwnerID, List<String> image) {
         this.id = id;
         Title = title;
         Rent = rent;
         this.images = image;
-        this.plotsize = plotsize;
+        this.OwnerID = OwnerID;
+    }
+    public PropertyClass(String id, String title, int rent, int size, List<String> image) {
+        this.id = id;
+        Title = title;
+        Rent = rent;
+        this.images = image;
+        plotsize= size;
     }
     public PropertyClass(String id, String title, int rent) {
         this.id = id;

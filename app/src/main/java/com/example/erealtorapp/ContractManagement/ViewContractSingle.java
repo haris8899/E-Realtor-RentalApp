@@ -1,6 +1,7 @@
 package com.example.erealtorapp.ContractManagement;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class ViewContractSingle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityViewContractBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        getSupportActionBar().hide();
         Intent intent = getIntent();
         CID = intent.getStringExtra("A1");
         auth = FirebaseAuth.getInstance();
@@ -58,6 +60,24 @@ public class ViewContractSingle extends AppCompatActivity {
         bind.messageRecyclerView.setLayoutManager(layoutManager);
         bind.messageRecyclerView.setItemAnimator(new DefaultItemAnimator());
         bind.messageRecyclerView.setAdapter(adapter);
+        bind.messageRecyclerView.setVisibility(View.GONE);
+        bind.l3.setVisibility(View.GONE);
+        bind.ShowHidebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bind.ShowHidebtn.getText().toString().equals("Show Chat"))
+                {
+                    bind.messageRecyclerView.setVisibility(View.VISIBLE);
+                    bind.l3.setVisibility(View.VISIBLE);
+                    bind.ShowHidebtn.setText("Hide Chat");
+                }
+                else{
+                    bind.messageRecyclerView.setVisibility(View.GONE);
+                    bind.l3.setVisibility(View.GONE);
+                    bind.ShowHidebtn.setText("Show Chat");
+                }
+            }
+        });
         dialog.show();
         myref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -203,13 +223,11 @@ public class ViewContractSingle extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageList.clear();
-                Log.d("Tag","listener entered");
                 for(DataSnapshot postsnapshot: snapshot.getChildren())
                 {
                     String Sender = postsnapshot.child("sender").getValue().toString();
                     String message = postsnapshot.child("message").getValue().toString();
                     messageList.add(new MessagesClass(Sender,message));
-                    Log.d("Tag","Length "+messageList.size());
                     adapter.notifyDataSetChanged();
                     bind.messageRecyclerView.scrollToPosition(adapter.getItemCount()-1);
                 }

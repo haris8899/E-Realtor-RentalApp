@@ -7,8 +7,27 @@
     android:orientation="vertical"
     tools:context=".ContractManagement.ViewContractSingle">
 
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="Contract"
+        android:textSize="20dp"
+        android:layout_toEndOf="@id/ShowHidebtn"/>
+
+    <Button
+        android:id="@+id/ShowHidebtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:text="Show Chat" />
+
     <LinearLayout
         android:id="@+id/l1"
+        android:layout_below="@id/ShowHidebtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

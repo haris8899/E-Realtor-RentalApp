@@ -95,6 +95,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                     });
                                 } else {
                                     Toast.makeText(UserLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    dilog.cancel();
                                 }
                             }
                         });

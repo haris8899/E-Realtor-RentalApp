@@ -22,7 +22,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/option" />
+                android:src="@drawable/logout" />
 
             <ImageView
                 android:id="@+id/AddProperty_DashboardButton"
