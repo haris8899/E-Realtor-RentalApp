@@ -22,6 +22,7 @@ import com.example.erealtorapp.AddManagement.ViewMyAds;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
 import com.example.erealtorapp.ContractManagement.ViewContractSingle;
 import com.example.erealtorapp.ContractManagement.ViewMyContracts;
+import com.example.erealtorapp.UserAccountsManagement.UserLoginActivity;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -153,6 +154,8 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         } else if (item.getItemId() == R.id.nav_Logout) {
             auth.signOut();
             getActivity().finish();
+            Intent intent= new Intent(getActivity(), UserLoginActivity.class);
+            startActivity(intent);
         }
         else if(item.getItemId() == R.id.view_contracts_menu)
         {
