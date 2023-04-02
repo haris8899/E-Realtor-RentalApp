@@ -55,6 +55,19 @@ public class UserLoginActivity extends AppCompatActivity {
         binding.SignInbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //For Input Validation
+                String Semail=binding.EmailSignInTextbox.getEditText().getText().toString().trim();
+                String Spass=binding.PasswordTextbox.getEditText().getText().toString().trim();
+                if (Semail.isEmpty()){
+                    binding.EmailSignInTextbox.setError("Email Address is Required");
+                    return;
+                }
+                if (Spass.isEmpty()){
+                    binding.PasswordTextbox.setError("Password is Required");
+                    return;
+                }
+
+                //For Signin into the system
                 dilog.show();
                 auth.signInWithEmailAndPassword(binding.EmailSignInTextbox.getEditText().getText()
                                         .toString().trim()

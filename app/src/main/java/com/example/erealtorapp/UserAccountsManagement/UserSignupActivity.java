@@ -58,6 +58,31 @@ public class UserSignupActivity extends AppCompatActivity {
         binding.RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //for data validation
+                String  username= binding.usernameTextbox.getEditText().getText().toString().trim();
+                String  email= binding.EmailSignupText.getEditText().getText().toString().trim();
+                String  pass= binding.PasswordSignUpTextBox.getEditText().getText().toString().trim();
+                String  pno= binding.phonetextBox.getEditText().getText().toString().trim();
+
+                if (username.isEmpty()){
+                    binding.usernameTextbox.setError("Username is Required");
+                    return;
+                }
+                if (email.isEmpty()){
+                    binding.EmailSignupText.setError("Email Address is Required");
+                    return;
+                }
+                if (pass.isEmpty()){
+                    binding.PasswordSignUpTextBox.setError("Password is Required");
+                    return;
+                }
+                if (pno.isEmpty()){
+                    binding.phonetextBox.setError("Phone no is Required");
+                    return;
+                }
+
+
+                //To create user Account
                 dilog.show();
                 binding.ProfileImageView.buildDrawingCache();
                 Bitmap bmap = binding.ProfileImageView.getDrawingCache();
@@ -120,4 +145,5 @@ public class UserSignupActivity extends AppCompatActivity {
         String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return result;
     }
+
 }
