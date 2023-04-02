@@ -65,7 +65,7 @@ public class ViewMyContracts extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("userfiles",0);
                     String user = sharedPreferences.getString("A1","");
                     String CID = csnapshot.getKey();
-                    Log.d("Tag",CID);
+                    //Log.d("Tag",CID);
                     String tenantname = csnapshot.child("tenantID").getValue().toString();
                     String propertyid = csnapshot.child("propertyID").getValue().toString();
                     String rentamount = csnapshot.child("rentAmount").getValue().toString();
