@@ -15,6 +15,13 @@
         android:theme="@style/Theme.ErealtorApp"
         tools:targetApi="31">
         <activity
+            android:name=".WalletManagement.SendETHActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".WalletManagement.ViewWalletActivity"
             android:exported="false">
             <meta-data

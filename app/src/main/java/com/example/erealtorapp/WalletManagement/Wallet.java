@@ -15,7 +15,10 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 
 import java.io.File;
@@ -108,6 +111,13 @@ public class Wallet {
         BigInteger wei = balance.getBalance();
 
         return Convert.fromWei(wei.toString(),Convert.Unit.ETHER);
+    }
+
+    public void sendEth(Credentials credentials,String Address,double amount) throws Exception {
+        Web3j web3j = Web3j.build(new HttpService(BuildConfig.WEB3_API));
+        TransactionReceipt transactionReceipt = Transfer.sendFunds(
+                web3j, credentials, Address,
+                BigDecimal.valueOf(amount), Convert.Unit.ETHER).sendAsync().get();
     }
 
     public boolean WalletExists(Activity context)
