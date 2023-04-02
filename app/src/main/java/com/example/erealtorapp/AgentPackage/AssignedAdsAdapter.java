@@ -79,8 +79,23 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
         holder.acceptadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = data.getId().toString();
-                myref.child(id).child("status").setValue("true");
+                DatabaseReference myref2 = FirebaseDatabase.getInstance().getReference("Users");
+                myref2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String id = data.getId().toString();
+                        myref.child(id).child("status").setValue("true");
+                        String to = snapshot.child(data.getOwnerID()).child("email").getValue().toString();
+                        String subject = "About Posted Property";
+                        String message = "Dear User\n The property Posted by you has been Checked and Verified\n";
+                        SendEmail(to,subject,message);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
         holder.rejectadbtn.setOnClickListener(new View.OnClickListener() {

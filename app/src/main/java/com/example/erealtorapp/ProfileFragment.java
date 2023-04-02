@@ -23,6 +23,9 @@ import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
 import com.example.erealtorapp.ContractManagement.ViewContractSingle;
 import com.example.erealtorapp.ContractManagement.ViewMyContracts;
 import com.example.erealtorapp.UserAccountsManagement.UserLoginActivity;
+import com.example.erealtorapp.WalletManagement.CreateNewWalletActivity;
+import com.example.erealtorapp.WalletManagement.ViewWalletActivity;
+import com.example.erealtorapp.WalletManagement.Wallet;
 import com.example.erealtorapp.databinding.FragmentProfileBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -136,6 +139,14 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
+        if(new Wallet().WalletExists(getActivity()))
+        {
+            navigationView.getMenu().findItem(R.id.user_Wallet_DrawerMenu).setTitle("View Wallet");
+        }
+        else
+        {
+            navigationView.getMenu().findItem(R.id.user_Wallet_DrawerMenu).setTitle("Create Wallet");
+        }
         bind.menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,19 +160,49 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // For navigation menu item clicked
-        if (item.getItemId() == R.id.nav_home) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (item.getItemId() == R.id.nav_Logout) {
-            auth.signOut();
-            getActivity().finish();
-            Intent intent= new Intent(getActivity(), UserLoginActivity.class);
-            startActivity(intent);
-        }
-        else if(item.getItemId() == R.id.view_contracts_menu)
+        Intent intent;
+        switch (item.getItemId())
         {
-            Intent intent = new Intent(getActivity(), ViewMyContracts.class);
-            startActivity(intent);
+            case R.id.nav_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_Logout:
+                auth.signOut();
+                getActivity().finish();
+                intent= new Intent(getActivity(), UserLoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.view_contracts_menu:
+                intent = new Intent(getActivity(), ViewMyContracts.class);
+                startActivity(intent);
+                break;
+            case R.id.user_Wallet_DrawerMenu:
+                if(new Wallet().WalletExists(getActivity()))
+                {
+                    intent = new Intent(getActivity(), ViewWalletActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    intent = new Intent(getActivity(), CreateNewWalletActivity.class);
+                    startActivity(intent);
+                }
+                break;
+
         }
+//        if (item.getItemId() == R.id.nav_home) {
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//        } else if (item.getItemId() == R.id.nav_Logout) {
+//            auth.signOut();
+//            getActivity().finish();
+//            Intent intent= new Intent(getActivity(), UserLoginActivity.class);
+//            startActivity(intent);
+//        }
+//        else if(item.getItemId() == R.id.view_contracts_menu)
+//        {
+//            Intent intent = new Intent(getActivity(), ViewMyContracts.class);
+//            startActivity(intent);
+//        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -26,12 +26,12 @@
             </group>
         </menu>
     </item>
-    <item android:title="Payments">
+    <item android:title="Wallet Management">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/user_MakePayement_DrawerMenu"
-                    android:title="Make Payment"
+                    android:id="@+id/user_Wallet_DrawerMenu"
+                    android:title="View Wallet"
                     android:icon="@drawable/cpayment"/>
 
             </group>
