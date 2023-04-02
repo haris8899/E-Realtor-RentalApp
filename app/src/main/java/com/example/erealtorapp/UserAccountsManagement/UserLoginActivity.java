@@ -111,6 +111,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                                 });
                                     }else{
                                         Toast.makeText(UserLoginActivity.this,"Please verify your Email Address",Toast.LENGTH_LONG).show();
+                                        auth.getCurrentUser().sendEmailVerification();
                                     }
 
                                 } else {
