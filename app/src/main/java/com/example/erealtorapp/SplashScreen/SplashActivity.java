@@ -16,6 +16,7 @@ import com.example.erealtorapp.UserAccountsManagement.UserLoginActivity;
 import com.example.erealtorapp.UserDashboardPackage.UserDashBoardMainActivity;
 import com.example.erealtorapp.databinding.ActivitySplashBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,14 +56,16 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
-                if(auth.getCurrentUser()==null)
+                //For Email Verification and keep user login
+                if(auth.getCurrentUser()!=null && auth.getCurrentUser().isEmailVerified() )
                 {
-                    Intent intent=new Intent(SplashActivity.this, UserLoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
                     Intent intent = new Intent(SplashActivity.this,
                             UserDashBoardMainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+                    Intent intent=new Intent(SplashActivity.this, UserLoginActivity.class);
                     startActivity(intent);
                     finish();
                 }

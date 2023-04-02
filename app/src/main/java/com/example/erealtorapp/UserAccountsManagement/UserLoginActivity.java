@@ -76,36 +76,43 @@ public class UserLoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference myref = database.getReference("Users");
-                                    ValueEventListener valueEventListener =
-                                            myref.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            Intent intent = new Intent(UserLoginActivity.this,
-                                                    UserDashBoardMainActivity.class);
-                                            SharedPreferences sharedpreference =
-                                                    getSharedPreferences("userfiles", 0);
-                                            SharedPreferences.Editor editor = sharedpreference.edit();
-                                            editor.clear();
-                                            editor.commit();
-                                            editor.putString("A1",auth.getUid());
-                                            editor.putString("A2",snapshot.child(auth
-                                                            .getUid()
-                                                            .toString())
-                                                    .child("type")
-                                                    .getValue().toString());
-                                            editor.commit();
-                                            startActivity(intent);
-                                            dilog.cancel();
-                                            finish();
-                                        }
+                                    //for Email Verification
+                                    if(auth.getCurrentUser().isEmailVerified())
+                                    {
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference myref = database.getReference("Users");
+                                        ValueEventListener valueEventListener =
+                                                myref.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        Intent intent = new Intent(UserLoginActivity.this,
+                                                                UserDashBoardMainActivity.class);
+                                                        SharedPreferences sharedpreference =
+                                                                getSharedPreferences("userfiles", 0);
+                                                        SharedPreferences.Editor editor = sharedpreference.edit();
+                                                        editor.clear();
+                                                        editor.commit();
+                                                        editor.putString("A1",auth.getUid());
+                                                        editor.putString("A2",snapshot.child(auth
+                                                                        .getUid()
+                                                                        .toString())
+                                                                .child("type")
+                                                                .getValue().toString());
+                                                        editor.commit();
+                                                        startActivity(intent);
+                                                        dilog.cancel();
+                                                        finish();
+                                                    }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                        }
-                                    });
+                                                    }
+                                                });
+                                    }else{
+                                        Toast.makeText(UserLoginActivity.this,"Please verify your Email Address",Toast.LENGTH_LONG).show();
+                                    }
+
                                 } else {
                                     Toast.makeText(UserLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     dilog.cancel();

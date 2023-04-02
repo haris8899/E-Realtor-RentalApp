@@ -91,17 +91,25 @@ public class UserSignupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         dilog.dismiss();
                         if (task.isSuccessful()) {
-                            //calling singnup constructor for UserRegistrationclass
-                            UserClass User = new UserClass(binding.usernameTextbox.getEditText().getText().toString().trim(), binding.EmailSignupText.getEditText().getText().toString().trim(), binding.PasswordSignUpTextBox.getEditText().getText().toString().trim(), binding.phonetextBox.getEditText().getText().toString().trim(), "Simple User", BitmaptoString(bmap));
+                            //To send email verification
+                            auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task1) {
+                                    if(task1.isSuccessful()){
+                                        //calling singnup constructor for UserRegistrationclass
+                                        UserClass User = new UserClass(binding.usernameTextbox.getEditText().getText().toString().trim(), binding.EmailSignupText.getEditText().getText().toString().trim(), binding.PasswordSignUpTextBox.getEditText().getText().toString().trim(), binding.phonetextBox.getEditText().getText().toString().trim(), "Simple User", BitmaptoString(bmap));
 
-                            //get Userid from Authentication portal
-                            String id = task.getResult().getUser().getUid();
+                                        //get Userid from Authentication portal
+                                        String id = task.getResult().getUser().getUid();
+                                        //Add User to database
+                                        database.getReference().child("Users").child(id).setValue(User);
+                                        Toast.makeText(UserSignupActivity.this, "Account Created Successfully! Please check your email for verification", Toast.LENGTH_SHORT).show();
+                                    } else{
+                                        Toast.makeText(UserSignupActivity.this,task1.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
 
-                            //Add User to database
-                            database.getReference().child("Users").child(id).setValue(User);
-
-                            Toast.makeText(UserSignupActivity.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
-                            finish();
                         } else {
                             Toast.makeText(UserSignupActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
