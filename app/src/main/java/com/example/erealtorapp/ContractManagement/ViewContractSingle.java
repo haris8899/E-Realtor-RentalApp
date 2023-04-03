@@ -132,7 +132,7 @@ public class ViewContractSingle extends AppCompatActivity {
                 bind.StatusText.setText(Status);
                 ContractAddress ="";
                 if(snapshot.child("Contracts").child(CID)
-                        .child("ContractAddress").getValue().toString().length()>0)
+                        .child("ContractAddress").getValue()!=null)
                 {
                     ContractAddress = snapshot.child("Contracts").child(CID)
                             .child("ContractAddress").getValue().toString();

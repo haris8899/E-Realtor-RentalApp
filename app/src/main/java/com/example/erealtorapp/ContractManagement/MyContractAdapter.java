@@ -69,6 +69,7 @@ public class MyContractAdapter extends RecyclerView.Adapter<MyContractAdapter.Vi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String relatedname = snapshot.child(relatedid).child("username").getValue().toString();
+                Log.d("Tag",relatedname+" id: "+relatedid);
                 holder.RelatedName.setText(relatedname);
             }
 
