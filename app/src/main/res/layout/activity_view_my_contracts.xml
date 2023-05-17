@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/gradient_background"
     tools:context=".ContractManagement.ViewMyContracts">
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_margin="10dp"
+        android:text="My Contracts" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Contractrecyclerview"

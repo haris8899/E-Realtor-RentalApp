@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.erealtorapp.AddManagement.MyAddAdapter;
@@ -128,6 +129,8 @@ public class ViewContractSingle extends AppCompatActivity {
                         .child("tenantID").getValue().toString();
                 String Tenantname = snapshot.child("Users").child(Tenantid)
                         .child("username").getValue().toString();
+                String Tenantemail = snapshot.child("Users").child(Tenantid)
+                        .child("email").getValue().toString();
                 String rent = snapshot.child("Contracts").child(CID)
                         .child("rentAmount").getValue().toString();
                 String PropertyID = snapshot.child("Contracts").child(CID).
@@ -255,6 +258,18 @@ public class ViewContractSingle extends AppCompatActivity {
                             String rent = bind.Rentedit.getText().toString();
                             BigDecimal brent = Convert.toWei(rent, Convert.Unit.ETHER);
                             PayRentAlertDialog(ContractAddress,brent.toBigInteger());
+                        }
+                    });
+                }
+                if(Landlordid.equals(auth.getCurrentUser().getUid()) && Status.equals("Active"))
+                {
+                    bind.PayrentButton.setVisibility(View.VISIBLE);
+                    bind.PayrentButton.setText("Terminate Contract");
+                    BigDecimal brent = Convert.toWei(rent, Convert.Unit.ETHER);
+                    bind.PayrentButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TerminateAlertDialog(myref,Tenantemail,ContractAddress,brent.toBigInteger());
                         }
                     });
                 }
@@ -492,6 +507,77 @@ public class ViewContractSingle extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+    public void TerminateAlertDialog(DatabaseReference myref,String tenantemail,String finalContractAddress, BigInteger Amount)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        input.setHint("Enter Wallet Password");
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+        builder.setCancelable(false);
+        setFinishOnTouchOutside(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Password = input.getText().toString();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(ViewContractSingle.this);
+                final TextView output = new TextView(ViewContractSingle.this);
+                output.setText("Are you sure you want to Terminate contract \nAll security deposit will be lost");
+                builder1.setView(output);
+                builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String message = "Dear Tenant\n\n" +"I hope this letter finds you well. I am writing to inform you that due to unforeseen circumstances, it has become necessary for me to regain possession of the property. This letter serves as a formal notice of eviction, in accordance with the applicable laws and regulations of Pakistan.\n" +
+                                "\n" +
+                                "It is important to emphasize that this decision has not been made lightly, and I understand the impact it may have on you. I would like to express my sincere regret for any inconvenience caused by this situation. Please be aware that my intention is to handle this matter as smoothly and fairly as possible, with respect for both parties involved.\n" +
+                                "\n" +
+                                "In compliance with the law, you are hereby granted a period of 30 days to vacate the premises. During this time, I urge you to start making the necessary arrangements to secure alternative housing. Should you require any assistance or information regarding local resources, please do not hesitate to reach out to me, and I will be glad to help in any way I can";
+                        try {
+                            //Log.d("Tag","Final: "+finalContractAddress);
+                            contract = new RentalSmartContract().LoadContract(ViewContractSingle.this, finalContractAddress, Password);
+                            //Log.d("Tag","Address: "+contract.getContractAddress());
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                TransactionReceipt receipt= contract.agreementTerminated(new BigInteger("1"),Amount).sendAsync().get();
+                                Log.d("Tag","Hash: "+receipt.getTransactionHash());
+                                Tuple10<BigInteger, String, String, BigInteger, BigInteger, BigInteger, Boolean, BigInteger, String, String> block = contract.property_no(BigInteger.valueOf(1)).sendAsync().get();
+                                BigInteger timestamp = block.component5();
+                                StoreTransactionHistory(CID,"Contract terminated",receipt.getTransactionHash(),timestamp.toString());
+                            }
+                            //Log.d("Tag",contract.getTransactionReceipt().toString());
+                            dialog.cancel();
+                        } catch (Exception e) {
+                            Toast.makeText(ViewContractSingle.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Log.d("Tag",e.getMessage());
+                            e.printStackTrace();
+                        }
+                        myref.child("Contracts").child(CID).removeValue();
+                        SendEmail(tenantemail,"Eviction Notice",message);
+
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+            }
+        });
+        builder.show();
+    }
+
+    private void SendEmail(String to, String subject, String message)
+    {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+        email.putExtra(Intent.EXTRA_SUBJECT, subject);
+        email.putExtra(Intent.EXTRA_TEXT, message);
+
+        //need this to prompts email client only
+        email.setType("message/rfc822");
+
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
     }
     public void StoreTransactionHistory(String CID,String TransactionMessage, String TransactionHash, String BlockHash)
     {
