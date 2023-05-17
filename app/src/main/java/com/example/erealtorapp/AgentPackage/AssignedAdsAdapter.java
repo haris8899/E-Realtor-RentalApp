@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.erealtorapp.AddManagement.PropertyClass;
 import com.example.erealtorapp.AddManagement.ViewSingleAd;
 import com.example.erealtorapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +38,7 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
     private RecyclerView.ViewHolder holder;
     private int position;
     FirebaseDatabase database;
+    FirebaseAuth auth;
     DatabaseReference myref;
     String itemid;
     Context context;
@@ -46,6 +48,7 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
     public AssignedAdsAdapter(Activity a,Context context, ArrayList<PropertyClass> addList) {
         this.addList = addList;
         this.context = context;
+        auth = FirebaseAuth.getInstance();
         this.a = a;
     }
     @NonNull
@@ -85,6 +88,7 @@ public class AssignedAdsAdapter extends RecyclerView.Adapter<AssignedAdsAdapter.
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String id = data.getId().toString();
                         myref.child(id).child("status").setValue("true");
+                        myref.child(id).child("agentid").setValue(auth.getUid());
                         String to = snapshot.child(data.getOwnerID()).child("email").getValue().toString();
                         String subject = "About Posted Property";
                         String message = "Dear User\n The property Posted by you has been Checked and Verified\n";

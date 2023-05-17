@@ -14,10 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.erealtorapp.AddManagement.ViewMyAds;
-import com.example.erealtorapp.AdminPackage.RecruitAgent;
-import com.example.erealtorapp.R;
-import com.example.erealtorapp.databinding.FragmentAdminProfileBinding;
 import com.example.erealtorapp.databinding.FragmentAgentBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -54,9 +50,15 @@ public class AgentFragment extends Fragment {
                 String name = snapshot.child(uid).child("username").getValue().toString();
                 String image = snapshot.child(uid).child("profileURI").getValue().toString();
                 String email = snapshot.child(uid).child("email").getValue().toString();
+                String rating = snapshot.child(uid).child("ratings").child("rating").getValue().toString();
+                String numrating = snapshot.child(uid).child("ratings").child("num").getValue().toString();
+                int num = (int) Float.parseFloat(numrating);
+                numrating = String.valueOf(num);
                 bind.Profilenameesttext.setText(name);
                 bind.Profileimageview.setImageBitmap(stringtobitmap(image));
                 bind.profileemailtext.setText(email);
+                String ratingstr = "Ratings: "+rating+"/5"+" ("+numrating+")";
+                bind.AgentRatingtext.setText(ratingstr);
                 dilog.cancel();
             }
 

@@ -7,13 +7,16 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.erealtorapp.AgentPackage.AgentRating;
 import com.example.erealtorapp.ContractManagement.SendContractRequestActivity;
+import com.example.erealtorapp.databinding.ActivityViewMyaddSingleBinding;
 import com.example.erealtorapp.databinding.ActivityViewSingleAdBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +28,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ViewSingleAd extends AppCompatActivity {
+public class ViewMyaddSingle extends AppCompatActivity {
 
-    ActivityViewSingleAdBinding bind;
+    ActivityViewMyaddSingleBinding bind;
     Intent intent;
     String adid;
     FirebaseDatabase data;
@@ -40,7 +43,7 @@ public class ViewSingleAd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityViewSingleAdBinding.inflate(getLayoutInflater());
+        bind = ActivityViewMyaddSingleBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         intent = getIntent();
         getSupportActionBar().hide();
@@ -58,6 +61,18 @@ public class ViewSingleAd extends AppCompatActivity {
                 bind.NoOfBedroomsText.setText(snapshot.child(adid).child("noofRooms").getValue().toString());
                 bind.SizeOfPlotText.setText(snapshot.child(adid).child("plotsize").getValue().toString());
                 bind.RentAmountText.setText(snapshot.child(adid).child("rent").getValue().toString());
+                String status = snapshot.child(adid).child("status").getValue().toString();
+//                String Agent = "";
+//                if(snapshot.child(adid).child("agentid").getValue().toString()!=null)
+//                {
+//                    Agent = snapshot.child(adid).child("agentid").getValue().toString();
+//                }
+//                if(Agent!= null)
+//                {
+//                    Log.d("Tag","Agentid: "+Agent);
+//                    bind.AgentnameText.setText(Agent);
+//                }
+                bind.AddStatusText.setText(status);
                 DatabaseReference ref1 = snapshot.child(adid).child("images").getRef();
                 String owner = snapshot.child(adid).child("ownerID").getValue().toString();
                 ValueEventListener valuei = ref1.addValueEventListener(new ValueEventListener() {
@@ -93,23 +108,6 @@ public class ViewSingleAd extends AppCompatActivity {
                                 Picasso.get().load(currentImage).into(bind.PropertyImageView);
                             }
                         });
-                        if(owner.equals(auth.getUid()))
-                        {
-                            bind.SendContractRequestBtn.setVisibility(View.INVISIBLE);
-                            bind.CallOwnerBtn.setVisibility(View.INVISIBLE);
-                        }
-
-                        bind.SendContractRequestBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(ViewSingleAd.this
-                                        , SendContractRequestActivity.class);
-                                intent.putExtra("A1",owner);
-                                intent.putExtra("A2",adid);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
 
                     }
 
@@ -128,18 +126,32 @@ public class ViewSingleAd extends AppCompatActivity {
                         String phone= snapshot2.child(snapshot.child(adid).child("ownerID").getValue().toString())
                                 .child("phone").getValue().toString();
                         bind.OwnerPhoneText.setText(phone);
-                        bind.CallOwnerBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ViewSingleAd.this,"Call owner",Toast.LENGTH_SHORT).show();
-                                String number=phone;
-                                Log.d("Tag",number);
-                                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                callIntent.setData(Uri.parse("tel:"+number));
-                                startActivity(callIntent);
-
+                        String Agentname = "Not Verified";
+                        String Agent ="";
+                        if(snapshot.child(adid).child("agentid").getValue()!=null)
+                        {
+                            Agent = snapshot.child(adid).child("agentid").getValue().toString();
+                            Agentname = snapshot2.child(Agent).child("username").getValue().toString();
+                            if(snapshot.child(adid).child("verified").getValue()!=null)
+                            {
+                                bind.AgentnameText.setTextColor(Color.WHITE);
+                            } else
+                            {
+                                bind.AgentnameText.setTextColor(Color.CYAN);
+                                String finalAgent = Agent;
+                                bind.AgentnameText.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(ViewMyaddSingle.this, AgentRating.class);
+                                        intent.putExtra("A1", finalAgent);
+                                        intent.putExtra("A2", adid);
+                                        startActivity(intent);
+                                    }
+                                });
                             }
-                        });
+                        }
+                        Log.d("Tag","Agentid: "+Agent);
+                        bind.AgentnameText.setText(Agentname);
                     }
 
                     @Override

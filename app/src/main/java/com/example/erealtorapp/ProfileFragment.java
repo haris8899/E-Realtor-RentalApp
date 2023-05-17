@@ -19,8 +19,8 @@ import android.view.ViewGroup;
 
 import com.example.erealtorapp.AddManagement.PostPropertyActivity;
 import com.example.erealtorapp.AddManagement.ViewMyAds;
+import com.example.erealtorapp.AddManagement.ViewMyaddSingle;
 import com.example.erealtorapp.AgentPackage.ReqruitAgentRequestActivity;
-import com.example.erealtorapp.ContractManagement.ViewContractSingle;
 import com.example.erealtorapp.ContractManagement.ViewMyContracts;
 import com.example.erealtorapp.UserAccountsManagement.UserLoginActivity;
 import com.example.erealtorapp.WalletManagement.CreateNewWalletActivity;

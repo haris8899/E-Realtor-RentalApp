@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -84,6 +85,14 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
                 context.startActivity(intent);
             }
         });
+        holder.advon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ViewMyaddSingle.class);
+                intent.putExtra("A1",data.getId());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -93,6 +102,7 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
     }
     public class ViewHolder extends RecyclerView.ViewHolder
     {
+        CardView advon;
         ImageView dataimage;
         TextView Title;
         TextView Rent;
@@ -102,6 +112,7 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
         String itemid;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            advon = itemView.findViewById(R.id.adcontainer);
             dataimage = itemView.findViewById(R.id.addmainimagetext);
             Title = itemView.findViewById(R.id.addtitletext);
             Rent = itemView.findViewById(R.id.renttext);
