@@ -36,10 +36,6 @@ public class SendContractRequestActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myref = database.getReference();
         auth = FirebaseAuth.getInstance();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.duration_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bind.Durationspinner.setAdapter(adapter);
         //String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
         String TenantID = auth.getUid();
         String Owner = intent.getStringExtra("A1");
@@ -60,25 +56,10 @@ public class SendContractRequestActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            int duration = bind.Durationspinner.getSelectedItemPosition();
-                            String durationstring = "0.5";
-                            switch (duration)
-                            {
-                                case 0:
-                                    durationstring ="0.5";
-                                    break;
-                                case 1:
-                                    durationstring ="1";
-                                    break;
-                                case 2:
-                                    durationstring ="2";
-                                    break;
-
-                            }
                             MessagesClass messages = new MessagesClass(TenantID,
                                     bind.ContractInitiateMessage.getText().toString());
                             ContractClass Contract = new ContractClass(Owner,TenantID,PropertyID,"Request",
-                                    "Not Set",durationstring);
+                                    "Not Set");
                             myref.child("Contracts").child(ContractID).setValue(Contract);
                             myref.child("Contracts").child(ContractID).child("messages").child("0").setValue(messages);
                             finish();

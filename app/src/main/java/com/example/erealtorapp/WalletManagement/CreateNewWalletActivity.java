@@ -9,10 +9,12 @@ import android.widget.Toast;
 
 import com.example.erealtorapp.R;
 import com.example.erealtorapp.databinding.ActivityCreateNewWalletBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class CreateNewWalletActivity extends AppCompatActivity {
 
     ActivityCreateNewWalletBinding bind;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class CreateNewWalletActivity extends AppCompatActivity {
         bind = ActivityCreateNewWalletBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         getSupportActionBar().hide();
+        auth = FirebaseAuth.getInstance();
         bind.CreateWalletButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

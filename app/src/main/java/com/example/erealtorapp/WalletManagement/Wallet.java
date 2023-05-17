@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.erealtorapp.BuildConfig;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.crypto.CipherException;
@@ -58,8 +59,16 @@ public class Wallet {
 
     public String CreateNewWallet(Activity context, String Password)
     {
+        FirebaseAuth auth  = FirebaseAuth.getInstance();
+        String userid = auth.getUid();
+        Log.d("tag",userid);
         String testpath  = context.getBaseContext().getExternalFilesDir(null).getAbsolutePath();
-        File file = new File(testpath+"/wallet");
+        Log.d("Tag",testpath);
+        File file1 = new File(testpath+"/wallet");
+        if(!file1.exists()){
+            file1.mkdir();
+        }
+        File file = new File(testpath+"/wallet/"+userid);
         if(!file.exists()){
             file.mkdir();
         }
@@ -72,8 +81,9 @@ public class Wallet {
                     context.getSharedPreferences("Walletfiles", 0);
             SharedPreferences.Editor editor = sharedpreference.edit();
             editor.commit();
-            editor.putString("A3",fileName);
-            editor.putString("A4",file.getAbsolutePath());
+            editor.putString(userid+"A3",fileName);
+            editor.putString(userid+"A4",file.getAbsolutePath());
+            Log.d("Tag",file.getAbsolutePath());
             editor.commit();
             return  fileName;
         } catch (CipherException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | NoSuchProviderException | IOException e) {
@@ -84,12 +94,14 @@ public class Wallet {
     }
 
     public Credentials LoadWalletCrediantials(Activity context, String Password) throws CipherException, IOException {
+        FirebaseAuth auth  = FirebaseAuth.getInstance();
+        String userid = auth.getUid();
         if(WalletExists(context))
         {
             SharedPreferences sharedpreference =
                     context.getSharedPreferences("Walletfiles", 0);
-            String name = sharedpreference.getString("A3","");
-            String Path = sharedpreference.getString("A4","");
+            String name = sharedpreference.getString(userid+"A3","");
+            String Path = sharedpreference.getString(userid+"A4","");
             String filepath = Path +"/"+name;
             Credentials credentials = WalletUtils.loadCredentials(
                     Password,
@@ -107,7 +119,10 @@ public class Wallet {
 
     public BigDecimal getbalance(Credentials credentials) throws ExecutionException, InterruptedException {
         Web3j web3j = Web3j.build(new HttpService(BuildConfig.WEB3_API));
-        EthGetBalance balance = web3j.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        EthGetBalance balance = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            balance = web3j.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        }
         BigInteger wei = balance.getBalance();
 
         return Convert.fromWei(wei.toString(),Convert.Unit.ETHER);
@@ -115,17 +130,21 @@ public class Wallet {
 
     public void sendEth(Credentials credentials,String Address,double amount) throws Exception {
         Web3j web3j = Web3j.build(new HttpService(BuildConfig.WEB3_API));
-        TransactionReceipt transactionReceipt = Transfer.sendFunds(
-                web3j, credentials, Address,
-                BigDecimal.valueOf(amount), Convert.Unit.ETHER).sendAsync().get();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            TransactionReceipt transactionReceipt = Transfer.sendFunds(
+                    web3j, credentials, Address,
+                    BigDecimal.valueOf(amount), Convert.Unit.ETHER).sendAsync().get();
+        }
     }
 
     public boolean WalletExists(Activity context)
     {
+        FirebaseAuth auth  = FirebaseAuth.getInstance();
+        String userid = auth.getUid();
         SharedPreferences sharedpreference =
                 context.getSharedPreferences("Walletfiles", 0);
-        String name = sharedpreference.getString("A3","");
-        String Path = sharedpreference.getString("A4","");
+        String name = sharedpreference.getString(userid+"A3","");
+        String Path = sharedpreference.getString(userid+"A4","");
         File file = new File(Path +"/"+name);
         if(file.isFile())
         {

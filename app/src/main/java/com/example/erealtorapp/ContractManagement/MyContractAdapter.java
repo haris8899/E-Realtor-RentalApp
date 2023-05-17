@@ -30,18 +30,15 @@ import java.util.Objects;
 public class MyContractAdapter extends RecyclerView.Adapter<MyContractAdapter.ViewHolder> {
     private RecyclerView.ViewHolder holder;
     private int position;
+    ArrayList<ContractClass> contractList = new ArrayList<ContractClass>();
     String relatedid="";
     FirebaseDatabase database;
     DatabaseReference myref;
-
+    Context context;
     public MyContractAdapter(Context context, ArrayList<ContractClass> contractList) {
         this.contractList = contractList;
         this.context = context;
     }
-
-    String itemid;
-    Context context;
-    ArrayList<ContractClass> contractList = new ArrayList<ContractClass>();
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -80,19 +77,6 @@ public class MyContractAdapter extends RecyclerView.Adapter<MyContractAdapter.Vi
         });
         holder.Status.setText(data.getStatus());
         holder.Rentamount.setText(data.getRentAmount());
-        String duration = data.getDuration();
-        switch (duration)
-        {
-            case "0.5":
-                holder.duration.setText("6 Months");
-                break;
-            case "1":
-                holder.duration.setText("1 Year");
-                break;
-            case "2":
-                holder.duration.setText("2 Years");
-                break;
-        }
         holder.contractcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +95,6 @@ public class MyContractAdapter extends RecyclerView.Adapter<MyContractAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView RelatedName;
-        TextView duration;
         TextView userstatus;
         TextView Status;
         TextView Rentamount;
@@ -119,7 +102,6 @@ public class MyContractAdapter extends RecyclerView.Adapter<MyContractAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             RelatedName = itemView.findViewById(R.id.TenantNameText);
-            duration = itemView.findViewById(R.id.durationtext);
             userstatus = itemView.findViewById(R.id.UserStatus);
             Status = itemView.findViewById(R.id.StatusText);
             contractcard = itemView.findViewById(R.id.contractcard);

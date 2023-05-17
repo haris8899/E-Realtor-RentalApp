@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -20,6 +21,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.erealtorapp.AddManagement.MyAddAdapter;
+import com.example.erealtorapp.AddManagement.ViewSingleAd;
+import com.example.erealtorapp.ErealtorSmartContract.ContractJavaFunctions;
 import com.example.erealtorapp.ErealtorSmartContract.Project_sol_ERealtor_Property;
 import com.example.erealtorapp.ErealtorSmartContract.RentalSmartContract;
 import com.example.erealtorapp.R;
@@ -33,16 +36,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.web3j.abi.datatypes.Int;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tuples.Tuple;
+import org.web3j.tuples.generated.Tuple10;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Convert;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -54,8 +63,11 @@ public class ViewContractSingle extends AppCompatActivity {
     String CID;
     String ContractAddress;
     Credentials credentials;
+    ContractJavaFunctions ContractFunc;
     String Password;
     Project_sol_ERealtor_Property contract;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    Date date = new Date();
     FirebaseDatabase database;
     DatabaseReference myref;
     ArrayList<MessagesClass> messageList;
@@ -74,10 +86,6 @@ public class ViewContractSingle extends AppCompatActivity {
         ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Data is Loading");
         dialog.setTitle("Loading");
-        ArrayAdapter<CharSequence> spinadapter = ArrayAdapter.createFromResource(this,
-                R.array.duration_array, android.R.layout.simple_spinner_item);
-        spinadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bind.durationedit.setAdapter(spinadapter);
         messageList = new ArrayList<MessagesClass>();
         adapter = new ChatAdapter(messageList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -85,6 +93,7 @@ public class ViewContractSingle extends AppCompatActivity {
         bind.messageRecyclerView.setItemAnimator(new DefaultItemAnimator());
         bind.messageRecyclerView.setAdapter(adapter);
         bind.messageRecyclerView.setVisibility(View.GONE);
+        bind.PayrentButton.setVisibility(View.GONE);
         bind.l3.setVisibility(View.GONE);
 
 
@@ -94,11 +103,13 @@ public class ViewContractSingle extends AppCompatActivity {
             public void onClick(View view) {
                 if(bind.ShowHidebtn.getText().toString().equals("Show Chat"))
                 {
+                    bind.l1.setVisibility(View.GONE);
                     bind.messageRecyclerView.setVisibility(View.VISIBLE);
                     bind.l3.setVisibility(View.VISIBLE);
                     bind.ShowHidebtn.setText("Hide Chat");
                 }
                 else{
+                    bind.l1.setVisibility(View.VISIBLE);
                     bind.messageRecyclerView.setVisibility(View.GONE);
                     bind.l3.setVisibility(View.GONE);
                     bind.ShowHidebtn.setText("Show Chat");
@@ -117,20 +128,30 @@ public class ViewContractSingle extends AppCompatActivity {
                         .child("tenantID").getValue().toString();
                 String Tenantname = snapshot.child("Users").child(Tenantid)
                         .child("username").getValue().toString();
-                String duration = snapshot.child("Contracts").child(CID)
-                        .child("duration").getValue().toString();
                 String rent = snapshot.child("Contracts").child(CID)
                         .child("rentAmount").getValue().toString();
                 String PropertyID = snapshot.child("Contracts").child(CID).
                         child("propertyID").getValue().toString();
                 String Status = snapshot.child("Contracts").child(CID)
                         .child("status").getValue().toString();
-                String durationString = "";
-                int durationint = 0;
+                String propertyid = snapshot.child("Contracts").child(CID)
+                        .child("propertyID").getValue().toString();
+                String PropertyName = snapshot.child("Properties").child(propertyid)
+                        .child("title").getValue().toString();
+                bind.PropertyNameText.setText(PropertyName);
                 bind.LandlordNameText.setText(Landlordname);
                 bind.TenantNameText.setText(Tenantname);
                 bind.StatusText.setText(Status);
                 ContractAddress ="";
+                if(Status.equals("Request"))
+                {
+                    bind.TransactionHistoryBtn.setEnabled(false);
+                }
+                else
+                {
+                    //ContractFunc = new ContractJavaFunctions(ViewContractSingle.this,)
+                    bind.TransactionHistoryBtn.setEnabled(true);
+                }
                 if(snapshot.child("Contracts").child(CID)
                         .child("ContractAddress").getValue()!=null)
                 {
@@ -154,23 +175,15 @@ public class ViewContractSingle extends AppCompatActivity {
                     bind.RentText.setText(rent);
                     bind.Rentedit.setText(rent);
                 }
-                switch (duration)
-                {
-                    case "0.5":
-                        durationString = "6 months";
-                        durationint = 0;
-                        break;
-                    case "1":
-                        durationString = "1 year";
-                        durationint = 1;
-                        break;
-                    case "2":
-                        durationString = "2 Years";
-                        durationint = 2;
-                        break;
-                }
-                bind.durationText.setText(durationString);
-                bind.durationedit.setSelection(durationint);
+                bind.PropertyNameText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ViewContractSingle.this, ViewSingleAd.class);
+                        intent.putExtra("A1",propertyid);
+                        startActivity(intent);
+                        //finish();
+                    }
+                });
                 bind.AcceptContractButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -195,25 +208,8 @@ public class ViewContractSingle extends AppCompatActivity {
                                 String rent = bind.Rentedit.getText().toString();
                                 BigDecimal brent = Convert.toWei(rent, Convert.Unit.ETHER);
                                 Log.d("Tag",brent.toString());
-                                AddPropertyAlertDialog(ContractAddress,"1",PropertyID,
+                                AddPropertyAlertDialog(CID,ContractAddress,"1",PropertyID,
                                         brent.toBigInteger(), brent.toBigInteger());
-                                int duration = bind.durationedit.getSelectedItemPosition();
-                                String durationstring = "0.5";
-                                switch (duration)
-                                {
-                                    case 0:
-                                        durationstring ="0.5";
-                                        break;
-                                    case 1:
-                                        durationstring ="1";
-                                        break;
-                                    case 2:
-                                        durationstring ="2";
-                                        break;
-
-                                }
-                                myref.child("Contracts").child(CID)
-                                        .child("duration").setValue(durationstring);
 
                                 String message = "Contract Has been Accepted";
                                 SendMessage("System",message);
@@ -221,9 +217,13 @@ public class ViewContractSingle extends AppCompatActivity {
                         }
                         if(Status.equals("Accepted") && auth.getCurrentUser().getUid().equals(Tenantid))
                         {
-                            SignAgreementAlertDialog(ContractAddress);
+                            String rent = bind.Rentedit.getText().toString();
+                            BigDecimal brent = Convert.toWei(rent, Convert.Unit.ETHER);
+                            SignAgreementAlertDialog(ContractAddress,brent.toBigInteger().multiply(BigInteger.valueOf(2)));
                             myref.child("Contracts").child(CID)
                                     .child("status").setValue("Active");
+                            String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                            Log.d("Tag",date);
                             String message = "Contract Has been Accepted by Tenant";
                             SendMessage("System",message);
                         }
@@ -246,6 +246,18 @@ public class ViewContractSingle extends AppCompatActivity {
                 });
                 bind.LandlordLayout.setVisibility(View.GONE);
                 bind.l2.setVisibility(View.GONE);
+                if(Tenantid.equals(auth.getCurrentUser().getUid()) && Status.equals("Active"))
+                {
+                    bind.PayrentButton.setVisibility(View.VISIBLE);
+                    bind.PayrentButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String rent = bind.Rentedit.getText().toString();
+                            BigDecimal brent = Convert.toWei(rent, Convert.Unit.ETHER);
+                            PayRentAlertDialog(ContractAddress,brent.toBigInteger());
+                        }
+                    });
+                }
                 if(Landlordid.equals(auth.getCurrentUser().getUid()))
                 {
                     bind.TenantLayout.setVisibility(View.GONE);
@@ -305,6 +317,14 @@ public class ViewContractSingle extends AppCompatActivity {
 
             }
         });
+        bind.TransactionHistoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewContractSingle.this,TransactionHistoryActivity.class);
+                intent.putExtra("A1",CID);
+                startActivity(intent);
+            }
+        });
 
     }
     public void SendMessage(String Sender, String Message)
@@ -321,7 +341,9 @@ public class ViewContractSingle extends AppCompatActivity {
         String array = null;
         try {
             contract = new RentalSmartContract().LoadContract(ViewContractSingle.this,ContractAddress,Password);
-            array = contract.property_no(BigInteger.valueOf(1)).sendAsync().get().toString();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                array = contract.property_no(BigInteger.valueOf(1)).sendAsync().get().toString();
+            }
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -354,6 +376,7 @@ public class ViewContractSingle extends AppCompatActivity {
                             .child("status").setValue("Negotiating");
                     dialog.cancel();
                 } catch (Exception e) {
+                    Toast.makeText(ViewContractSingle.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     Log.d("Tag",e.getMessage());
                     e.printStackTrace();
                 }
@@ -361,7 +384,7 @@ public class ViewContractSingle extends AppCompatActivity {
         });
         builder.show();
     }
-    public void AddPropertyAlertDialog(String finalContractAddress,
+    public void AddPropertyAlertDialog(String CID,String finalContractAddress,
                                        String Title, String Address, BigInteger rent, BigInteger advance)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -378,7 +401,13 @@ public class ViewContractSingle extends AppCompatActivity {
                     Password = input.getText().toString();
                     try {
                         contract = new RentalSmartContract().LoadContract(ViewContractSingle.this, finalContractAddress, Password);
-                        contract.addProperty(Title,Address,rent,advance).sendAsync();
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            TransactionReceipt receipt = contract.addProperty(Title,Address,rent,advance).sendAsync().get();
+                            Log.d("Tag", "Hash: "+receipt.getTransactionHash());
+                            Tuple10<BigInteger, String, String, BigInteger, BigInteger, BigInteger, Boolean, BigInteger, String, String> block = contract.property_no(BigInteger.valueOf(1)).sendAsync().get();
+                            BigInteger timestamp = block.component5();
+                            StoreTransactionHistory(CID,"Property Added to Blockchain",receipt.getTransactionHash(), timestamp.toString());
+                        }
                     } catch (CipherException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -386,6 +415,7 @@ public class ViewContractSingle extends AppCompatActivity {
                     }
                     dialog.cancel();
                 } catch (Exception e) {
+                    Toast.makeText(ViewContractSingle.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     Log.d("Tag","Test: "+e.getMessage());
                     e.printStackTrace();
                 }
@@ -393,7 +423,7 @@ public class ViewContractSingle extends AppCompatActivity {
         });
         builder.show();
     }
-    public void SignAgreementAlertDialog(String finalContractAddress)
+    public void SignAgreementAlertDialog(String finalContractAddress, BigInteger Amount)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
@@ -410,10 +440,17 @@ public class ViewContractSingle extends AppCompatActivity {
                     //Log.d("Tag","Final: "+finalContractAddress);
                     contract = new RentalSmartContract().LoadContract(ViewContractSingle.this, finalContractAddress, Password);
                     //Log.d("Tag","Address: "+contract.getContractAddress());
-                    contract.signAgreement(new BigInteger("1"),new DefaultGasProvider().getGasPrice()).sendAsync();
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        TransactionReceipt receipt= contract.signAgreement(new BigInteger("1"),Amount).sendAsync().get();
+                        Log.d("Tag","Hash: "+receipt.getTransactionHash());
+                        Tuple10<BigInteger, String, String, BigInteger, BigInteger, BigInteger, Boolean, BigInteger, String, String> block = contract.property_no(BigInteger.valueOf(1)).sendAsync().get();
+                        BigInteger timestamp = block.component5();
+                        StoreTransactionHistory(CID,"Agreement Signed",receipt.getTransactionHash(),timestamp.toString());
+                    }
                     //Log.d("Tag",contract.getTransactionReceipt().toString());
                     dialog.cancel();
                 } catch (Exception e) {
+                    Toast.makeText(ViewContractSingle.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     Log.d("Tag",e.getMessage());
                     e.printStackTrace();
                 }
@@ -421,5 +458,48 @@ public class ViewContractSingle extends AppCompatActivity {
         });
         builder.show();
     }
-
+    public void PayRentAlertDialog(String finalContractAddress, BigInteger Amount)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        input.setHint("Enter Wallet Password");
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+        builder.setCancelable(false);
+        setFinishOnTouchOutside(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Password = input.getText().toString();
+                try {
+                    //Log.d("Tag","Final: "+finalContractAddress);
+                    contract = new RentalSmartContract().LoadContract(ViewContractSingle.this, finalContractAddress, Password);
+                    //Log.d("Tag","Address: "+contract.getContractAddress());
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        TransactionReceipt receipt= contract.payRent(new BigInteger("1"),Amount).sendAsync().get();
+                        Log.d("Tag","Hash: "+receipt.getTransactionHash());
+                        Tuple10<BigInteger, String, String, BigInteger, BigInteger, BigInteger, Boolean, BigInteger, String, String> block = contract.property_no(BigInteger.valueOf(1)).sendAsync().get();
+                        BigInteger timestamp = block.component5();
+                        StoreTransactionHistory(CID,"Rent Payment",receipt.getTransactionHash(),timestamp.toString());
+                    }
+                    //Log.d("Tag",contract.getTransactionReceipt().toString());
+                    dialog.cancel();
+                } catch (Exception e) {
+                    Toast.makeText(ViewContractSingle.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Log.d("Tag",e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        });
+        builder.show();
+    }
+    public void StoreTransactionHistory(String CID,String TransactionMessage, String TransactionHash, String BlockHash)
+    {
+        FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+        DatabaseReference myref = database1.getReference("Contracts").child(CID).getRef();
+        int index = adapter.getItemCount();
+        myref.child("Transactions").child(String.valueOf(index)).child("Message").setValue(TransactionMessage);
+        myref.child("Transactions").child(String.valueOf(index)).child("Hash").setValue(TransactionHash);
+        myref.child("Transactions").child(String.valueOf(index)).child("block").setValue(BlockHash);
+    }
 }

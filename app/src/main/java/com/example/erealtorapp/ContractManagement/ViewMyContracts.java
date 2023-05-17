@@ -70,15 +70,14 @@ public class ViewMyContracts extends AppCompatActivity {
                     String propertyid = csnapshot.child("propertyID").getValue().toString();
                     String rentamount = csnapshot.child("rentAmount").getValue().toString();
                     String status = csnapshot.child("status").getValue().toString();
-                    String duration = csnapshot.child("duration").getValue().toString();
                     if(!datalist.contains(
                             new ContractClass(CID, landlordname,tenantname,propertyid
-                                    ,status,rentamount,duration)))
+                                    ,status,rentamount)))
                     {
                         if(landlordname.equals(user) ||tenantname.equals(user))
                         {
                             datalist.add(new ContractClass(CID, landlordname,tenantname,propertyid
-                                    ,status,rentamount,duration));
+                                    ,status,rentamount));
                             adapter.notifyDataSetChanged();
                         }
                     }

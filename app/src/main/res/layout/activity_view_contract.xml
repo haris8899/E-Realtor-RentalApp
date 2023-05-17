@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".ContractManagement.ViewContractSingle">
 
@@ -14,22 +15,37 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:text="Contract"
-        android:textSize="20dp"
-        android:layout_toEndOf="@id/ShowHidebtn"/>
+        android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/ShowHidebtn"
-        android:layout_width="100dp"
+    <LinearLayout
+        android:id="@+id/L0"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
-        android:text="Show Chat" />
+        android:layout_below="@id/textView12"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ShowHidebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Show Chat" />
+
+        <Button
+            android:id="@+id/TransactionHistoryBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="More Details" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/l1"
-        android:layout_below="@id/ShowHidebtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/L0"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -37,6 +53,15 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Property"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/textView"
@@ -73,22 +98,23 @@
                 android:gravity="center"
                 android:text="Rent(ETH)"
                 android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Advance ETH"
-                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/PropertyNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Property Name"
+                android:textColor="@color/teal_700"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/LandlordNameText"
@@ -107,6 +133,7 @@
                 android:gravity="center"
                 android:text="Tenant Name"
                 android:textSize="15dp" />
+
             <TextView
                 android:id="@+id/StatusText"
                 android:layout_width="match_parent"
@@ -131,15 +158,8 @@
                     android:text="Not Set"
                     android:textSize="15dp" />
 
-                <TextView
-                    android:id="@+id/durationText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="duration"
-                    android:textSize="15dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/LandlordLayout"
                 android:layout_width="match_parent"
@@ -152,36 +172,38 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center"
-                    android:inputType="numberDecimal"
                     android:hint="Not Set"
-                    android:textSize="15dp" />
-
-                <Spinner
-                    android:id="@+id/durationedit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="duration"
+                    android:inputType="numberDecimal"
                     android:textSize="15dp" />
             </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/PayrentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Pay Rent" />
+
     <LinearLayout
         android:id="@+id/l2"
-        android:layout_below="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/PayrentButton"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/AcceptContractButton"
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Accept" />
 
@@ -196,28 +218,28 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
-        android:layout_below="@+id/l2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/l2"
         android:layout_marginBottom="80dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/l3"
-        android:background="@color/cardview_dark_background"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/gradient_cardview"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/EnterMessageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="3"
             android:ems="10"
-            android:layout_gravity="center"
             android:hint="Enter Message"
             android:inputType="textPersonName"
             android:minHeight="48dp" />

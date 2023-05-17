@@ -8,7 +8,6 @@ public class ContractClass {
     String PropertyID;
     String ContractID;
     String RentAmount;
-    String Duration;
 
     public String getContractID() {
         return ContractID;
@@ -70,41 +69,27 @@ public class ContractClass {
         RentAmount = rentAmount;
     }
 
-    public String getDuration() {
-        return Duration;
-    }
-
-    public void setDuration(String duration) {
-        Duration = duration;
-    }
-
-    public ContractClass(String ContractID, String landlordID, String tenantID, String PropertyID,String Status, String rentAmount
-            , String duration) {
+    public ContractClass(String ContractID, String landlordID, String tenantID, String PropertyID,String Status, String rentAmount) {
         this.ContractID = ContractID;
         LandlordID = landlordID;
         TenantID = tenantID;
         RentAmount = rentAmount;
-        Duration = duration;
         this.Status = Status;
         this.PropertyID = PropertyID;
     }
 
-    public ContractClass(String landlordID, String tenantID, String PropertyID,String Status, String rentAmount
-            , String duration) {
+    public ContractClass(String landlordID, String tenantID, String PropertyID,String Status, String rentAmount) {
         LandlordID = landlordID;
         TenantID = tenantID;
         RentAmount = rentAmount;
-        Duration = duration;
         this.Status = Status;
         this.PropertyID = PropertyID;
     }
 
-    public ContractClass(String landlordID, String tenantID, String rentAmount
-            , String duration, ArrayList<MessagesClass> Messages) {
+    public ContractClass(String landlordID, String tenantID, String rentAmount, ArrayList<MessagesClass> Messages) {
         LandlordID = landlordID;
         TenantID = tenantID;
         RentAmount = rentAmount;
-        Duration = duration;
         this.Messages = Messages;
     }
 }
