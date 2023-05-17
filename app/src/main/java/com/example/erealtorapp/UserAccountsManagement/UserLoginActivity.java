@@ -123,6 +123,15 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
+        //For Forget Password
+        binding.forgetLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(UserLoginActivity.this,ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void LaunchSignUpActivity(View view) {
