@@ -57,7 +57,7 @@ public class ViewAddRecyclerViewAdapter
             e.printStackTrace();
         }
         holder.Title.setText(data.getTitle());
-        holder.Rent.setText(String.valueOf(data.getRent()));
+        holder.Rent.setText(String.valueOf(data.getRent())+" ETH");
 
     }
 

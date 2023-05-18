@@ -225,6 +225,7 @@ public class ViewContractSingle extends AppCompatActivity {
                             SignAgreementAlertDialog(ContractAddress,brent.toBigInteger().multiply(BigInteger.valueOf(2)));
                             myref.child("Contracts").child(CID)
                                     .child("status").setValue("Active");
+                            myref.child("Properties").child(propertyid).child("Status").setValue("Rented");
                             String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
                             Log.d("Tag",date);
                             String message = "Contract Has been Accepted by Tenant";

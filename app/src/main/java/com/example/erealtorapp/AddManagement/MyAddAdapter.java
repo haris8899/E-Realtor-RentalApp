@@ -62,7 +62,7 @@ public class MyAddAdapter extends RecyclerView.Adapter<MyAddAdapter.ViewHolder>{
         }
 
         holder.Title.setText(data.getTitle());
-        holder.Rent.setText(String.valueOf(data.getRent()));
+        holder.Rent.setText(String.valueOf(data.getRent())+" ETH");
         holder.deleteitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
