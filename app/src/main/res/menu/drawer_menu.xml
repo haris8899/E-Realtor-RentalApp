@@ -37,23 +37,4 @@
             </group>
         </menu>
     </item>
-    <item android:title="About Us">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/user_ContactUs_DrawerMenu"
-                    android:title="Contact Us"
-                    android:icon="@drawable/communicate"/>
-                <item
-                    android:id="@+id/user_Terms_DrawerMenu"
-                    android:title="Terms and Conditions"
-                    android:icon="@drawable/information"/>
-                <item
-                    android:id="@+id/user_RateUs_DrawerMenu"
-                    android:title="Rate Us"
-                    android:icon="@drawable/star"/>
-
-            </group>
-        </menu>
-    </item>
 </menu>
