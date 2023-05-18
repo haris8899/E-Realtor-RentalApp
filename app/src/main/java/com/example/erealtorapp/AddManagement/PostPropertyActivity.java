@@ -67,6 +67,34 @@ public class PostPropertyActivity extends AppCompatActivity {
         bind.UploadAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String  Ptitle= bind.PropertyTitleText.getEditText().getText().toString().trim();
+                String  pAddress= bind.PropertyAddresText.getEditText().getText().toString().trim();
+                String  Amount= bind.RentAmountText.getEditText().getText().toString().trim();
+                String  Nob= bind.NoOfBedroomsText.getEditText().getText().toString().trim();
+                String  size= bind.SizeOfPlotText.getEditText().getText().toString().trim();
+
+                //For Input Validation
+                if (Ptitle.isEmpty()){
+                    bind.PropertyTitleText.setError("Property Title Requires");
+                    return;
+                }
+                if (pAddress.isEmpty()){
+                    bind.PropertyAddresText.setError("Address is Required");
+                    return;
+                }
+                if (Amount.isEmpty()){
+                    bind.RentAmountText.setError("Rent is Required");
+                    return;
+                }
+                if (Nob.isEmpty()){
+                    bind.NoOfBedroomsText.setError("No of Bed room is Required");
+                    return;
+                }
+                if (size.isEmpty()){
+                    bind.SizeOfPlotText.setError("Area is Required");
+                    return;
+                }
+
                 dialog =new ProgressDialog(PostPropertyActivity.this);
                 dialog.setTitle("Uploading");
                 dialog.show();
